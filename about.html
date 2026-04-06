@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — Y'all We Asian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --off-black: #111111; --panel: #161616;
+      --red: #e8173a; --red-dim: #9b0f26; --white: #f0ede6;
+      --muted: #6b6760; --gold: #c9a84c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-accent: 'Noto Serif JP', serif;
+    }
+    html, body { background: var(--black); color: var(--white); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 72px;
+      background: rgba(10,10,10,0.85); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.55rem; letter-spacing: 0.06em; color: var(--white); text-decoration: none; line-height: 1; display: flex; align-items: center; }
+    .nav-logo .red { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--red); }
+
+    /* PAGE */
+    main { padding: 120px 0 80px; animation: fadeUp 0.5s ease forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-label { font-family: var(--font-accent); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+
+    /* ABOUT */
+    .about-layout {
+      max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+    .about-left h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 2rem; }
+    .about-left h1 em { font-style: italic; font-family: var(--font-accent); color: var(--gold); font-size: 0.65em; vertical-align: super; }
+    .about-right p { font-size: 1.05rem; line-height: 1.85; color: rgba(240,237,230,0.75); margin-bottom: 1.5rem; }
+    .about-right p strong { color: var(--white); font-weight: 600; }
+
+    .about-pillars { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.08); }
+    .pillar { padding: 1.5rem; border: 1px solid rgba(255,255,255,0.04); transition: background 0.2s; }
+    .pillar:hover { background: rgba(232,23,58,0.06); }
+    .pillar-num { font-family: var(--font-display); font-size: 2.5rem; color: var(--red); opacity: 0.4; line-height: 1; }
+    .pillar h3 { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0.4rem 0 0.3rem; }
+    .pillar p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    .about-divider { max-width: 1200px; margin: 5rem auto 0; padding: 0 3rem; display: flex; align-items: center; gap: 1.5rem; }
+    .about-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+    .about-divider-text { font-family: var(--font-accent); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); }
+
+    /* TEAM STRIP */
+    .team-strip { max-width: 1200px; margin: 5rem auto 0; padding: 0 3rem; }
+    .team-strip h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.04em; margin-bottom: 2rem; }
+    .team-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
+    .team-strip-item { background: var(--panel); padding: 1.8rem; border: 1px solid rgba(255,255,255,0.04); transition: background 0.2s; }
+    .team-strip-item:hover { background: rgba(232,23,58,0.05); }
+    .team-strip-name { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.05em; }
+    .team-strip-role { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; margin-top: 5rem; }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.06em; }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+    .footer-social { display: flex; gap: 1.2rem; }
+    .footer-social a { font-size: 0.72rem; text-decoration: none; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--red); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; }
+      .team-strip { padding: 0 1.5rem; } .team-strip-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .about-pillars { grid-template-columns: 1fr; }
+      .team-strip-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Y'ALL&nbsp;<span class="red">WE</span>&nbsp;ASIAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About Us</a></li>
+    <li><a href="bios.html">Bios</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="about-layout">
+    <div class="about-left">
+      <p class="section-label">Our Story</p>
+      <h1>ABOUT<br>THE CREW<em>™</em></h1>
+    </div>
+    <div class="about-right">
+      <p>
+        <strong>Y'all We Asian</strong> is Austin's boldest, most chaotic, and most heartfelt improv comedy troupe. We were born out of a simple observation: there weren't enough Asian-American voices on the improv stage — so we climbed up there ourselves.
+      </p>
+      <p>
+        We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.
+      </p>
+      <p>
+        Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.
+      </p>
+
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h3>Authentic</h3>
+          <p>Real stories from real people. No filter, no apologies.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h3>Community</h3>
+          <p>We uplift each other on and off the stage.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h3>Fearless</h3>
+          <p>We go there. Every time. That's the deal.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <h3>Joyful</h3>
+          <p>Comedy is how we make sense of the world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-divider">
+    <div class="about-divider-line"></div>
+    <div class="about-divider-text">二世 · NISEI · 두 번째</div>
+    <div class="about-divider-line"></div>
+  </div>
+
+  <div class="team-strip">
+    <h2>THE ENSEMBLE</h2>
+    <div class="team-strip-grid">
+      <div class="team-strip-item"><div class="team-strip-name">MAYA CHEN</div><div class="team-strip-role">Founder · She/Her</div></div>
+      <div class="team-strip-item"><div class="team-strip-name">KEVIN NGUYEN</div><div class="team-strip-role">Co-Founder · He/Him</div></div>
+      <div class="team-strip-item"><div class="team-strip-name">PRIYA RAO</div><div class="team-strip-role">Ensemble · She/Her</div></div>
+      <div class="team-strip-item"><div class="team-strip-name">JAMES LIM</div><div class="team-strip-role">Ensemble · He/Him</div></div>
+      <div class="team-strip-item"><div class="team-strip-name">AMY TANAKA</div><div class="team-strip-role">Ensemble · She/They</div></div>
+      <div class="team-strip-item"><div class="team-strip-name">DANIEL PARK</div><div class="team-strip-role">Ensemble · He/Him</div></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">Y'ALL <span>WE</span> ASIAN</div>
+  <div class="footer-copy">© 2017 Y'all We Asian. All rights reserved.</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/yallweasian" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/yallweasian" target="_blank">Facebook</a>
+    <a href="https://www.tiktok.com/@ywaimprov" target="_blank">TikTok</a>
+  </div>
+</footer>
+
+</body>
+</html>

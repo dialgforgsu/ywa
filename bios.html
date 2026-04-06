@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bios — Y'all We Asian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --off-black: #111111; --panel: #161616;
+      --red: #e8173a; --white: #f0ede6; --muted: #6b6760; --gold: #c9a84c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-accent: 'Noto Serif JP', serif;
+    }
+    html, body { background: var(--black); color: var(--white); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 72px; background: rgba(10,10,10,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.55rem; letter-spacing: 0.06em; color: var(--white); text-decoration: none; line-height: 1; display: flex; align-items: center; }
+    .nav-logo .red { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--red); }
+
+    /* PAGE */
+    main { padding: 120px 0 80px; animation: fadeUp 0.5s ease forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .section-label { font-family: var(--font-accent); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+
+    /* BIOS */
+    .bios-header { max-width: 1200px; margin: 0 auto 4rem; padding: 0 3rem; }
+    .bios-header h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 0.03em; }
+
+    .bios-grid { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; }
+
+    .bio-card { background: var(--panel); overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s ease; }
+    .bio-card:hover { z-index: 2; transform: scale(1.015); }
+    .bio-card:hover .bio-overlay { opacity: 1; }
+    .bio-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; filter: brightness(0.75) grayscale(0.3); transition: filter 0.3s; }
+    .bio-card:hover .bio-img { filter: brightness(0.55); }
+    .bio-img-placeholder { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 5rem; color: rgba(232,23,58,0.2); transition: filter 0.3s; filter: brightness(0.75); }
+    .bio-card:hover .bio-img-placeholder { filter: brightness(0.55); }
+    .bio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; opacity: 0.85; transition: opacity 0.3s; }
+    .bio-tag { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+    .bio-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.2rem; }
+    .bio-hometown { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+    .bio-desc { font-size: 0.8rem; line-height: 1.6; color: rgba(240,237,230,0.7); margin-top: 0.8rem; opacity: 0; transform: translateY(6px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; }
+    .bio-card:hover .bio-desc { opacity: 1; transform: translateY(0); }
+
+    /* FULL BIO MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(6px); }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--panel); max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid rgba(255,255,255,0.08); animation: fadeUp 0.3s ease; }
+    .modal-img-placeholder { width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 8rem; color: rgba(232,23,58,0.15); }
+    .modal-body { padding: 2rem 2.5rem 2.5rem; }
+    .modal-tag { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); }
+    .modal-name { font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.04em; line-height: 1; margin: 0.3rem 0 0.5rem; }
+    .modal-hometown { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
+    .modal-text { font-size: 0.95rem; line-height: 1.85; color: rgba(240,237,230,0.75); }
+    .modal-close { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(255,255,255,0.07); border: none; color: var(--white); font-size: 1.1rem; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .modal-close:hover { background: var(--red); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; margin-top: 5rem; }
+    .footer-logo { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.06em; }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+    .footer-social { display: flex; gap: 1.2rem; }
+    .footer-social a { font-size: 0.72rem; text-decoration: none; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--red); }
+
+    @media (max-width: 900px) { nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; } .bios-header, .bios-grid { padding: 0 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; } }
+    @media (max-width: 600px) { .nav-links { display: none; } .bios-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Y'ALL&nbsp;<span class="red">WE</span>&nbsp;ASIAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="bios.html" class="active">Bios</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="bios-header">
+    <p class="section-label">The Ensemble</p>
+    <h1>MEET<br>THE CAST</h1>
+  </div>
+  <div class="bios-grid" id="bios-grid"></div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-img-placeholder" id="modal-img"></div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modal-tag"></div>
+      <div class="modal-name" id="modal-name"></div>
+      <div class="modal-hometown" id="modal-hometown"></div>
+      <div class="modal-divider"></div>
+      <div class="modal-text" id="modal-text"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Y'ALL <span>WE</span> ASIAN</div>
+  <div class="footer-copy">© 2017 Y'all We Asian. All rights reserved.</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/yallweasian" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/yallweasian" target="_blank">Facebook</a>
+    <a href="https://www.tiktok.com/@ywaimprov" target="_blank">TikTok</a>
+  </div>
+</footer>
+
+<script>
+  const members = [
+    { name: "MAYA CHEN", tag: "Founder · She/Her", hometown: "Houston, TX", color: "#2a1a14",
+      desc: "Maya started YWA after one too many improv shows where she was the only Asian in the room. She specializes in object work, voices, and calling her mom mid-scene.",
+      full: "Maya started YWA after one too many improv shows where she was the only Asian in the room. She specializes in object work, voices, and calling her mom mid-scene. A trained performer with roots in Houston's theater scene, Maya brings warmth, precision, and a signature ability to find the heart in any scene. Off stage she's a graphic designer, avid karaoke host, and champion of the late-night dim sum run." },
+    { name: "KEVIN NGUYEN", tag: "Co-Founder · He/Him", hometown: "San Jose, CA", color: "#12201a",
+      desc: "Kevin brings the chaos energy. A UCB alum, he's known for his wildly specific characters and ability to make any scene about hot pot somehow.",
+      full: "Kevin brings the chaos energy. A UCB alum trained in New York, he returned to Texas determined to build something new. He's known for wildly specific characters, physical commitment, and the uncanny ability to make any scene about hot pot somehow. Kevin also coaches youth improv workshops and moonlights as a hobby bread baker with questionable results." },
+    { name: "PRIYA RAO", tag: "Ensemble · She/Her", hometown: "Plano, TX", color: "#1a1424",
+      desc: "Priya is a master of the slow burn. Her characters are devastatingly real and her timing is surgical. She also does excellent accents of her own relatives.",
+      full: "Priya is a master of the slow burn. Her characters are devastatingly real and her timing is surgical. She grew up in Plano performing in every school production she could find before discovering improv in college. She also does excellent accents of her own relatives — a talent her family finds both impressive and deeply concerning. When she's not on stage, Priya works in tech and stress-bakes elaborate cakes." },
+    { name: "JAMES LIM", tag: "Ensemble · He/Him", hometown: "Irvine, CA", color: "#1a1a24",
+      desc: "James is the group's anchor — the guy who grounds the wildest scenes. IRL he's a software engineer which tracks because he debugs scenes in real time.",
+      full: "James is the group's anchor — the guy who grounds the wildest scenes and makes everyone around him look brilliant. IRL he's a software engineer, which tracks because he quite literally debugs scenes in real time. James is the person on stage you don't notice until you can't imagine the scene without him. He also runs a deeply niche podcast about retro video game music and makes excellent Vietnamese coffee." },
+    { name: "AMY TANAKA", tag: "Ensemble · She/They", hometown: "Seattle, WA", color: "#201a14",
+      desc: "Amy trained at Second City and brings a theatrical, physicality-forward style. She once played three characters simultaneously and fooled the entire audience.",
+      full: "Amy trained at Second City Chicago and brings a theatrical, physicality-forward style to everything she touches. She once played three characters simultaneously in a single scene and fooled the entire audience — including the other performers. Amy is the ensemble's movement coach and runs a monthly movement-based improv jam. Outside of comedy she illustrates graphic novels and teaches beginner ceramics." },
+    { name: "DANIEL PARK", tag: "Ensemble · He/Him", hometown: "Dallas, TX", color: "#141a20",
+      desc: "Daniel is the newest member and already one of the most beloved. His specialty: earnest sincerity delivered at completely wrong moments.",
+      full: "Daniel is the newest member of YWA and already one of the most beloved. His specialty is earnest sincerity delivered at completely wrong moments — a gift that produces tears roughly every third show. He found improv while looking for a Tuesday night activity and never left. Daniel works as a middle school science teacher by day and considers both jobs to be fundamentally the same: keep people laughing and paying attention." },
+  ];
+
+  const grid = document.getElementById('bios-grid');
+  members.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'bio-card';
+    card.innerHTML = `
+      <div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">${m.name.charAt(0)}</div>
+      <div class="bio-overlay">
+        <div class="bio-tag">${m.tag}</div>
+        <div class="bio-name">${m.name}</div>
+        <div class="bio-hometown">📍 ${m.hometown}</div>
+        <div class="bio-desc">${m.desc}</div>
+      </div>`;
+    card.addEventListener('click', () => openModal(m));
+    grid.appendChild(card);
+  });
+
+  function openModal(m) {
+    document.getElementById('modal-img').style.background = `linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%)`;
+    document.getElementById('modal-img').textContent = m.name.charAt(0);
+    document.getElementById('modal-tag').textContent = m.tag;
+    document.getElementById('modal-name').textContent = m.name;
+    document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
+    document.getElementById('modal-text').textContent = m.full;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModalDirect() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+</script>
+</body>
+</html>
