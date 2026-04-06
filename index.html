@@ -29,34 +29,6 @@
       font-family: var(--font-body);
       min-height: 100vh;
       overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* ── Custom Cursor ── */
-    #cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      background: var(--red);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-      mix-blend-mode: difference;
-    }
-    #cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(232,23,58,0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%,-50%);
-      transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, border-color 0.2s ease;
-    }
-    body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 18px; height: 18px; }
-    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring {
-      width: 56px; height: 56px; border-color: var(--red);
     }
 
     /* ── Nav ── */
@@ -564,9 +536,6 @@
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="navigate('home')">Y<span>'</span>ALL WE ASIAN</div>
@@ -584,28 +553,27 @@
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Austin's Premier Asian-American Improv Troupe</p>
-    <h1 class="hero-title">
-      Y'ALL<br>
-      <span class="accent">WE</span><br>
-      ASIAN
-    </h1>
-    <p class="hero-subtitle">Unscripted. Unapologetic. Undeniably us.</p>
-    <button class="hero-cta" onclick="navigate('about')">Meet the Crew</button>
+    <p class="hero-eyebrow">Austin's First Asian-American Improv Comedy Troupe.</p>
+    <h1 class="hero-title">Y'ALL <span class="accent" style="display:inline;">WE</span> ASIAN</h1>
+    <p class="hero-subtitle">Improv. Comedy. Asian.</p>
+    <button class="hero-cta" onclick="navigate('bios')">Meet The Cast</button>
+    <a href="https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489" target="_blank" class="hero-cta hero-cta-outline" style="display:inline-block; margin-left: 1rem; background: transparent; border: 1.5px solid rgba(240,237,230,0.4); color: var(--white); text-decoration: none; padding: 0.85rem 2.8rem; font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.15s; opacity: 0; animation: fadeUp 0.7s 0.72s ease forwards;" onmouseover="this.style.borderColor='var(--white)';this.style.color='var(--white)'" onmouseout="this.style.borderColor='rgba(240,237,230,0.4)'">Get Tickets</a>
   </div>
   <div class="hero-ticker">
     <span class="ticker-inner">
       <span>IMPROV COMEDY</span><span class="dot">✦</span>
       <span>LIVE SHOWS</span><span class="dot">✦</span>
       <span>Y'ALL WE ASIAN</span><span class="dot">✦</span>
-      <span>UNSCRIPTED</span><span class="dot">✦</span>
-      <span>AUTHENTIC VOICES</span><span class="dot">✦</span>
+      <span>EVERY 1ST FRIDAY</span><span class="dot">✦</span>
+      <span>FALLOUT THEATER</span><span class="dot">✦</span>
+      <span>616 LAVACA</span><span class="dot">✦</span>
       <span>AUSTIN TX</span><span class="dot">✦</span>
       <span>IMPROV COMEDY</span><span class="dot">✦</span>
       <span>LIVE SHOWS</span><span class="dot">✦</span>
       <span>Y'ALL WE ASIAN</span><span class="dot">✦</span>
-      <span>UNSCRIPTED</span><span class="dot">✦</span>
-      <span>AUTHENTIC VOICES</span><span class="dot">✦</span>
+      <span>EVERY 1ST FRIDAY</span><span class="dot">✦</span>
+      <span>FALLOUT THEATER</span><span class="dot">✦</span>
+      <span>616 LAVACA</span><span class="dot">✦</span>
       <span>AUSTIN TX</span><span class="dot">✦</span>
     </span>
   </div>
@@ -699,7 +667,7 @@
         <div class="ci-icon">✉</div>
         <div>
           <div class="ci-label">Email</div>
-          <div class="ci-value">hello@yallweasian.com</div>
+          <div class="ci-value"><a href="/cdn-cgi/l/email-protection#e69f878a8a918387958f8788a6818b878f8ac885898b" style="color:inherit;text-decoration:none;"><span class="__cf_email__" data-cfemail="c9b0a8a5a5beaca8baa0a8a789aea4a8a0a5e7aaa6a4">[email&#160;protected]</span></a></div>
         </div>
       </div>
       <div class="contact-info-item">
@@ -713,7 +681,14 @@
         <div class="ci-icon">◎</div>
         <div>
           <div class="ci-label">Instagram</div>
-          <div class="ci-value">@yallweasian</div>
+          <div class="ci-value"><a href="https://www.instagram.com/yallweasian" target="_blank" style="color:inherit;text-decoration:none;">@yallweasian</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-icon">🎟</div>
+        <div>
+          <div class="ci-label">Get Tickets</div>
+          <div class="ci-value"><a href="https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489" target="_blank" style="color:inherit;text-decoration:none;">Eventbrite →</a></div>
         </div>
       </div>
     </div>
@@ -763,27 +738,15 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Y<span>'</span>ALL WE ASIAN</div>
-  <div class="footer-copy">© 2025 Y'all We Asian. All rights reserved.</div>
+  <div class="footer-copy">© 2017 Y'all We Asian. All rights reserved.</div>
   <div class="footer-social">
-    <a href="#">Instagram</a>
-    <a href="#">TikTok</a>
-    <a href="#">YouTube</a>
+    <a href="https://www.instagram.com/yallweasian" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/yallweasian" target="_blank">Facebook</a>
+    <a href="https://www.tiktok.com/@ywaimprov" target="_blank">TikTok</a>
   </div>
 </footer>
 
-<script>
-  /* ── Cursor ── */
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px';
-    cur.style.top  = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top  = e.clientY + 'px';
-    }, 60);
-  });
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   /* ── Routing ── */
   function navigate(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -870,21 +833,4 @@
   /* ── Contact Form ── */
   function submitForm() {
     const fields = ['fname','lname','email','reason','message'];
-    const missing = fields.filter(f => !document.getElementById(f).value.trim());
-    if (missing.length) {
-      missing.forEach(f => {
-        const el = document.getElementById(f);
-        el.style.borderColor = 'var(--red)';
-        setTimeout(() => el.style.borderColor = '', 2000);
-      });
-      return;
-    }
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
-
-  /* ── Init ── */
-  navigate('home');
-</script>
-</body>
-</html>
+    const missing = fields.filter(f => !document.getEl
