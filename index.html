@@ -49,8 +49,11 @@
       color: var(--white);
       cursor: pointer;
       line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 0;
     }
-    .nav-logo span { color: var(--red); }
+    .nav-logo .red { color: var(--red); }
     .nav-links {
       display: flex; gap: 2.5rem; list-style: none;
     }
@@ -94,6 +97,8 @@
         radial-gradient(ellipse 70% 60% at 60% 40%, rgba(232,23,58,0.12) 0%, transparent 70%),
         radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
     }
+    .hero-spotlight { display: none; }
+    .hero-valance { display: none; }
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
@@ -149,6 +154,19 @@
       opacity: 0; animation: fadeUp 0.7s 0.6s ease forwards;
     }
     .hero-cta:hover { background: #ff1f42; transform: translateY(-2px); }
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 2.8rem;
+      opacity: 0; animation: fadeUp 0.7s 0.6s ease forwards;
+    }
+    .hero-btns .hero-cta { margin-top: 0; opacity: 1; animation: none; }
+    .hero-cta-outline-btn {
+      background: transparent !important;
+      border: 1.5px solid rgba(240,237,230,0.45) !important;
+      color: var(--white) !important;
+      text-decoration: none;
+    }
+    .hero-cta-outline-btn:hover { background: rgba(255,255,255,0.08) !important; border-color: var(--white) !important; transform: translateY(-2px); }
 
     .hero-ticker {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -538,7 +556,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="navigate('home')">Y<span>'</span>ALL WE ASIAN</div>
+  <div class="nav-logo" onclick="navigate('home')">Y'ALL&nbsp;<span class="red">WE</span>&nbsp;ASIAN</div>
   <ul class="nav-links">
     <li><a onclick="navigate('home')" data-page="home">Home</a></li>
     <li><a onclick="navigate('about')" data-page="about">About Us</a></li>
@@ -551,13 +569,18 @@
 <!-- ═══ HOME ═══ -->
 <section id="home" class="page active">
   <div class="hero-bg"></div>
+  <div class="hero-valance"></div>
+  <div class="hero-spotlight"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Austin's First Asian-American Improv Comedy Troupe.</p>
     <h1 class="hero-title">Y'ALL <span class="accent" style="display:inline;">WE</span> ASIAN</h1>
     <p class="hero-subtitle">Improv. Comedy. Asian.</p>
-    <button class="hero-cta" onclick="navigate('bios')">Meet The Cast</button>
-    <a href="https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489" target="_blank" class="hero-cta hero-cta-outline" style="display:inline-block; margin-left: 1rem; background: transparent; border: 1.5px solid rgba(240,237,230,0.4); color: var(--white); text-decoration: none; padding: 0.85rem 2.8rem; font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.15s; opacity: 0; animation: fadeUp 0.7s 0.72s ease forwards;" onmouseover="this.style.borderColor='var(--white)';this.style.color='var(--white)'" onmouseout="this.style.borderColor='rgba(240,237,230,0.4)'">Get Tickets</a>
+    <div class="hero-btns">
+      <button class="hero-cta hero-cta-outline-btn" onclick="navigate('about')">About YWA</button>
+      <a href="https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489" target="_blank" class="hero-cta">Get Tickets</a>
+      <button class="hero-cta hero-cta-outline-btn" onclick="navigate('bios')">Meet The Cast</button>
+    </div>
   </div>
   <div class="hero-ticker">
     <span class="ticker-inner">
@@ -737,7 +760,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Y<span>'</span>ALL WE ASIAN</div>
+  <div class="footer-logo">Y'ALL <span>WE</span> ASIAN</div>
   <div class="footer-copy">© 2017 Y'all We Asian. All rights reserved.</div>
   <div class="footer-social">
     <a href="https://www.instagram.com/yallweasian" target="_blank">Instagram</a>
