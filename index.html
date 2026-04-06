@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Y'all We Asian — Improv Comedy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --panel: #161616;
+      --red: #e8173a;
+      --red-dim: #9b0f26;
+      --white: #f0ede6;
+      --muted: #6b6760;
+      --gold: #c9a84c;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-accent: 'Noto Serif JP', serif;
+    }
+
+    html, body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom Cursor ── */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      mix-blend-mode: difference;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(232,23,58,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, border-color 0.2s ease;
+    }
+    body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 18px; height: 18px; }
+    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring {
+      width: 56px; height: 56px; border-color: var(--red);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .nav-logo span { color: var(--red); }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a.active { color: var(--red); }
+
+    /* ── Pages ── */
+    .page { display: none; padding-top: 72px; min-height: 100vh; animation: fadeUp 0.5s ease forwards; }
+    .page.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════
+       HOME / HERO
+    ═══════════════════════════════ */
+    #home {
+      display: none;
+      position: relative; overflow: hidden;
+      min-height: 100vh;
+      padding-top: 72px;
+      align-items: center;
+      justify-content: center;
+    }
+    #home.active { display: flex; }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 60% 40%, rgba(232,23,58,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      opacity: 0; animation: fadeUp 0.7s 0.25s ease forwards;
+    }
+    .hero-title .accent { color: var(--red); display: block; }
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.8rem;
+      opacity: 0; animation: fadeUp 0.7s 0.45s ease forwards;
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 0.85rem 2.8rem;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      opacity: 0; animation: fadeUp 0.7s 0.6s ease forwards;
+    }
+    .hero-cta:hover { background: #ff1f42; transform: translateY(-2px); }
+
+    .hero-ticker {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(232,23,58,0.08);
+      padding: 10px 0;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 22s linear infinite;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      color: rgba(240,237,230,0.35);
+    }
+    .ticker-inner span { margin: 0 2.5rem; }
+    .ticker-inner .dot { color: var(--red); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ═══════════════════════════════
+       ABOUT
+    ═══════════════════════════════ */
+    #about { padding: 96px 0 80px; }
+    .section-label {
+      font-family: var(--font-accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+    .about-layout {
+      max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+    .about-left h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      margin-bottom: 2rem;
+    }
+    .about-left h1 em {
+      font-style: italic;
+      font-family: var(--font-accent);
+      color: var(--gold);
+      font-size: 0.65em;
+      vertical-align: super;
+    }
+    .about-right p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(240,237,230,0.75);
+      margin-bottom: 1.5rem;
+    }
+    .about-right p strong { color: var(--white); font-weight: 600; }
+    .about-pillars {
+      margin-top: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .pillar {
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
+    }
+    .pillar:hover { background: rgba(232,23,58,0.06); }
+    .pillar-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--red);
+      opacity: 0.4;
+      line-height: 1;
+    }
+    .pillar h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 0.4rem 0 0.3rem;
+    }
+    .pillar p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    .about-divider {
+      max-width: 1200px; margin: 5rem auto 0; padding: 0 3rem;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .about-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+    .about-divider-text {
+      font-family: var(--font-accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════
+       BIOS
+    ═══════════════════════════════ */
+    #bios { padding: 96px 0 80px; }
+    .bios-header {
+      max-width: 1200px; margin: 0 auto 4rem; padding: 0 3rem;
+    }
+    .bios-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      letter-spacing: 0.03em;
+    }
+    .bios-grid {
+      max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px;
+    }
+    .bio-card {
+      background: var(--panel);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .bio-card:hover { z-index: 2; transform: scale(1.015); }
+    .bio-card:hover .bio-overlay { opacity: 1; }
+    .bio-card:hover .bio-img { filter: brightness(0.55); }
+    .bio-img {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75) grayscale(0.3);
+      transition: filter 0.3s;
+    }
+    .bio-img-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #1e1e1e 0%, #2a1a1f 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: rgba(232,23,58,0.2);
+      transition: filter 0.3s;
+      filter: brightness(0.75);
+    }
+    .bio-card:hover .bio-img-placeholder { filter: brightness(0.55); }
+    .bio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.6rem;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .bio-tag {
+      font-family: var(--font-accent);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+    .bio-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .bio-hometown {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .bio-desc {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(240,237,230,0.7);
+      margin-top: 0.8rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+    }
+    .bio-card:hover .bio-desc { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════════════════
+       GALLERY
+    ═══════════════════════════════ */
+    #gallery { padding: 96px 0 80px; }
+    .gallery-header {
+      max-width: 1200px; margin: 0 auto 3rem; padding: 0 3rem;
+    }
+    .gallery-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      letter-spacing: 0.03em;
+    }
+    .gallery-filter {
+      max-width: 1200px; margin: 0 auto 2.5rem; padding: 0 3rem;
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 0.4rem 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .filter-btn:hover { border-color: var(--white); color: var(--white); }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: var(--white); }
+
+    .masonry {
+      max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+      columns: 3; column-gap: 4px;
+    }
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 4px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .masonry-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+    .gallery-img-placeholder {
+      width: 100%;
+      display: block;
+      background: linear-gradient(135deg, #1a1a1a, #251a1a);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      color: rgba(232,23,58,0.15);
+      transition: filter 0.3s;
+    }
+    .masonry-item:hover .gallery-img-placeholder { filter: brightness(0.6); }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.2rem;
+      background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: rgba(240,237,230,0.8);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    /* ═══════════════════════════════
+       CONTACT
+    ═══════════════════════════════ */
+    #contact { padding: 96px 0 80px; }
+    .contact-wrap {
+      max-width: 1200px; margin: 0 auto; padding: 0 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+    .contact-left h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      margin-bottom: 2rem;
+    }
+    .contact-left p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(240,237,230,0.65);
+      margin-bottom: 2.5rem;
+    }
+    .contact-info-item {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color 0.2s;
+    }
+    .contact-info-item:hover { border-color: var(--red); }
+    .ci-icon { font-size: 1.1rem; color: var(--red); width: 24px; text-align: center; }
+    .ci-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+    .ci-value { font-size: 0.9rem; font-weight: 300; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .field label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--red);
+      background: rgba(232,23,58,0.04);
+    }
+    .field textarea { resize: vertical; min-height: 120px; }
+    .field select option { background: var(--off-black); }
+    .submit-btn {
+      padding: 1rem 0;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: #ff1f42; transform: translateY(-1px); }
+
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 100%;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .footer-social {
+      display: flex; gap: 1.2rem;
+    }
+    .footer-social a {
+      font-size: 0.72rem;
+      text-decoration: none;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--red); }
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .about-layout, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; }
+      .masonry { columns: 2; padding: 0 1.5rem; }
+      .bios-grid { padding: 0 1.5rem; }
+      .bios-header, .gallery-header, .gallery-filter { padding: 0 1.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .masonry { columns: 1; }
+      .bios-grid { grid-template-columns: 1fr; }
+      .about-pillars { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="navigate('home')">Y<span>'</span>ALL WE ASIAN</div>
+  <ul class="nav-links">
+    <li><a onclick="navigate('home')" data-page="home">Home</a></li>
+    <li><a onclick="navigate('about')" data-page="about">About Us</a></li>
+    <li><a onclick="navigate('bios')" data-page="bios">Bios</a></li>
+    <li><a onclick="navigate('gallery')" data-page="gallery">Gallery</a></li>
+    <li><a onclick="navigate('contact')" data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HOME ═══ -->
+<section id="home" class="page active">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Austin's Premier Asian-American Improv Troupe</p>
+    <h1 class="hero-title">
+      Y'ALL<br>
+      <span class="accent">WE</span><br>
+      ASIAN
+    </h1>
+    <p class="hero-subtitle">Unscripted. Unapologetic. Undeniably us.</p>
+    <button class="hero-cta" onclick="navigate('about')">Meet the Crew</button>
+  </div>
+  <div class="hero-ticker">
+    <span class="ticker-inner">
+      <span>IMPROV COMEDY</span><span class="dot">✦</span>
+      <span>LIVE SHOWS</span><span class="dot">✦</span>
+      <span>Y'ALL WE ASIAN</span><span class="dot">✦</span>
+      <span>UNSCRIPTED</span><span class="dot">✦</span>
+      <span>AUTHENTIC VOICES</span><span class="dot">✦</span>
+      <span>AUSTIN TX</span><span class="dot">✦</span>
+      <span>IMPROV COMEDY</span><span class="dot">✦</span>
+      <span>LIVE SHOWS</span><span class="dot">✦</span>
+      <span>Y'ALL WE ASIAN</span><span class="dot">✦</span>
+      <span>UNSCRIPTED</span><span class="dot">✦</span>
+      <span>AUTHENTIC VOICES</span><span class="dot">✦</span>
+      <span>AUSTIN TX</span><span class="dot">✦</span>
+    </span>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="page">
+  <div class="about-layout">
+    <div class="about-left">
+      <p class="section-label">Our Story</p>
+      <h1>ABOUT<br>THE CREW<em>™</em></h1>
+    </div>
+    <div class="about-right">
+      <p>
+        <strong>Y'all We Asian</strong> is Austin's boldest, most chaotic, and most heartfelt improv comedy troupe. We were born out of a simple observation: there weren't enough Asian-American voices on the improv stage — so we climbed up there ourselves.
+      </p>
+      <p>
+        We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.
+      </p>
+      <p>
+        Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.
+      </p>
+
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h3>Authentic</h3>
+          <p>Real stories from real people. No filter, no apologies.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h3>Community</h3>
+          <p>We uplift each other on and off the stage.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h3>Fearless</h3>
+          <p>We go there. Every time. That's the deal.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <h3>Joyful</h3>
+          <p>Comedy is how we make sense of the world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-divider">
+    <div class="about-divider-line"></div>
+    <div class="about-divider-text">二世 · NISEI · 두 번째</div>
+    <div class="about-divider-line"></div>
+  </div>
+</section>
+
+<!-- ═══ BIOS ═══ -->
+<section id="bios" class="page">
+  <div class="bios-header">
+    <p class="section-label">The Ensemble</p>
+    <h1 class="bios-header-title">MEET<br>THE CAST</h1>
+  </div>
+  <div class="bios-grid" id="bios-grid"></div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery" class="page">
+  <div class="gallery-header">
+    <p class="section-label">Moments</p>
+    <h1>GALLERY</h1>
+  </div>
+  <div class="gallery-filter">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('shows', this)">Shows</button>
+    <button class="filter-btn" onclick="filterGallery('behind', this)">Behind the Scenes</button>
+    <button class="filter-btn" onclick="filterGallery('events', this)">Events</button>
+  </div>
+  <div class="masonry" id="masonry-grid"></div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="page">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <p class="section-label">Get In Touch</p>
+      <h1>LET'S<br>TALK</h1>
+      <p>
+        Want to book us for your event, collaborate on a project, or just tell us we're hilarious? We want to hear from you.
+      </p>
+
+      <div class="contact-info-item">
+        <div class="ci-icon">✉</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value">hello@yallweasian.com</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Based In</div>
+          <div class="ci-value">Austin, Texas</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-icon">◎</div>
+        <div>
+          <div class="ci-label">Instagram</div>
+          <div class="ci-value">@yallweasian</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <div class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" placeholder="Jae" id="fname">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" placeholder="Park" id="lname">
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" id="email">
+        </div>
+        <div class="field">
+          <label>Reason for Reaching Out</label>
+          <select id="reason">
+            <option value="">Select one…</option>
+            <option>Booking / Event</option>
+            <option>Collaboration</option>
+            <option>Press / Media</option>
+            <option>Just a Fan ❤️</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea placeholder="Tell us everything…" id="message"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Send It →</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <strong>Message received!</strong><br>
+        We'll get back to you faster than a "yes, and…"<br>
+        Thanks for reaching out! 🎉
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Y<span>'</span>ALL WE ASIAN</div>
+  <div class="footer-copy">© 2025 Y'all We Asian. All rights reserved.</div>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+    <a href="#">YouTube</a>
+  </div>
+</footer>
+
+<script>
+  /* ── Cursor ── */
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+
+  /* ── Routing ── */
+  function navigate(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const el = document.getElementById(page);
+    el.classList.add('active');
+    // re-trigger animation
+    el.style.animation = 'none';
+    requestAnimationFrame(() => { el.style.animation = ''; });
+    const link = document.querySelector(`[data-page="${page}"]`);
+    if (link) link.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── Bios Data ── */
+  const members = [
+    { name: "MAYA CHEN", tag: "Founder · She/Her", hometown: "Houston, TX", color: "#2a1a14",
+      desc: "Maya started YWA after one too many improv shows where she was the only Asian in the room. She specializes in object work, voices, and calling her mom mid-scene." },
+    { name: "KEVIN NGUYEN", tag: "Co-Founder · He/Him", hometown: "San Jose, CA", color: "#12201a",
+      desc: "Kevin brings the chaos energy. A UCB alum, he's known for his wildly specific characters and ability to make any scene about hot pot somehow." },
+    { name: "PRIYA RAO", tag: "Ensemble · She/Her", hometown: "Plano, TX", color: "#1a1424",
+      desc: "Priya is a master of the slow burn. Her characters are devastatingly real and her timing is surgical. She also does excellent accents of her own relatives." },
+    { name: "JAMES LIM", tag: "Ensemble · He/Him", hometown: "Irvine, CA", color: "#1a1a24",
+      desc: "James is the group's anchor — the guy who grounds the wildest scenes. IRL he's a software engineer which tracks because he debugs scenes in real time." },
+    { name: "AMY TANAKA", tag: "Ensemble · She/They", hometown: "Seattle, WA", color: "#201a14",
+      desc: "Amy trained at Second City and brings a theatrical, physicality-forward style to everything. She once played three characters simultaneously and fooled the entire audience." },
+    { name: "DANIEL PARK", tag: "Ensemble · He/Him", hometown: "Dallas, TX", color: "#141a20",
+      desc: "Daniel is the newest member and already one of the most beloved. His specialty: earnest sincerity delivered at completely wrong moments. Tears every time." },
+  ];
+
+  const biosGrid = document.getElementById('bios-grid');
+  members.forEach(m => {
+    biosGrid.innerHTML += `
+      <div class="bio-card">
+        <div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">
+          ${m.name.charAt(0)}
+        </div>
+        <div class="bio-overlay">
+          <div class="bio-tag">${m.tag}</div>
+          <div class="bio-name">${m.name}</div>
+          <div class="bio-hometown">📍 ${m.hometown}</div>
+          <div class="bio-desc">${m.desc}</div>
+        </div>
+      </div>`;
+  });
+
+  /* ── Gallery Data ── */
+  const photos = [
+    { h: 340, label: "Opening Night — The Paramount", cat: "shows", bg: "#1a0f0f" },
+    { h: 220, label: "Pre-show warmup", cat: "behind", bg: "#0f1a12" },
+    { h: 280, label: "AAPI Heritage Month Show", cat: "events", bg: "#0f0f1a" },
+    { h: 200, label: "Late Night Jam Vol. 3", cat: "shows", bg: "#1a1408" },
+    { h: 360, label: "Backstage: Kevin does the voice", cat: "behind", bg: "#120f1a" },
+    { h: 240, label: "Community Festival Performance", cat: "events", bg: "#0f1a18" },
+    { h: 300, label: "Friday Night Mainstage", cat: "shows", bg: "#1a100f" },
+    { h: 200, label: "Rehearsal at the warehouse", cat: "behind", bg: "#141a0f" },
+    { h: 260, label: "New Year's Showcase", cat: "events", bg: "#0f0f12" },
+  ];
+
+  const masonry = document.getElementById('masonry-grid');
+  let allItems = [];
+  photos.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'masonry-item';
+    div.dataset.cat = p.cat;
+    div.innerHTML = `
+      <div class="gallery-img-placeholder" style="height:${p.h}px; background: linear-gradient(160deg, ${p.bg} 0%, #0a0a0a 100%); font-size: ${p.h * 0.15}px;">
+        ◎
+      </div>
+      <div class="gallery-caption">${p.label}</div>`;
+    masonry.appendChild(div);
+    allItems.push(div);
+  });
+
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    allItems.forEach(item => {
+      const show = cat === 'all' || item.dataset.cat === cat;
+      item.style.display = show ? 'block' : 'none';
+    });
+  }
+
+  /* ── Contact Form ── */
+  function submitForm() {
+    const fields = ['fname','lname','email','reason','message'];
+    const missing = fields.filter(f => !document.getElementById(f).value.trim());
+    if (missing.length) {
+      missing.forEach(f => {
+        const el = document.getElementById(f);
+        el.style.borderColor = 'var(--red)';
+        setTimeout(() => el.style.borderColor = '', 2000);
+      });
+      return;
+    }
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  /* ── Init ── */
+  navigate('home');
+</script>
+</body>
+</html>
