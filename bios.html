@@ -39,16 +39,15 @@
 
     .bio-card { background: var(--panel); overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s ease; }
     .bio-card:hover { z-index: 2; transform: scale(1.015); }
-    .bio-card:hover .bio-overlay { opacity: 1; }
     .bio-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; filter: brightness(0.82); transition: filter 0.3s; }
-    .bio-card:hover .bio-img { filter: brightness(0.55); }
+    .bio-card:hover .bio-img { filter: brightness(0.48); }
     .bio-img-placeholder { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 5rem; color: rgba(232,23,58,0.2); transition: filter 0.3s; filter: brightness(0.75); }
-    .bio-card:hover .bio-img-placeholder { filter: brightness(0.55); }
-    .bio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; opacity: 0.85; transition: opacity 0.3s; }
-    .bio-tag { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
-    .bio-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.2rem; }
-    .bio-hometown { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
-    .bio-desc { font-size: 0.8rem; line-height: 1.6; color: rgba(240,237,230,0.7); margin-top: 0.8rem; opacity: 0; transform: translateY(6px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; }
+    .bio-card:hover .bio-img-placeholder { filter: brightness(0.45); }
+    .bio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.55) 45%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; opacity: 1; }
+    .bio-tag { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; order: 2; }
+    .bio-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.35rem; order: 3; }
+    .bio-hometown { font-size: 0.76rem; color: rgba(240,237,230,0.78); letter-spacing: 0.08em; order: 4; }
+    .bio-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(240,237,230,0.82); margin-bottom: 0.75rem; order: 1; opacity: 0; transform: translateY(8px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; }
     .bio-card:hover .bio-desc { opacity: 1; transform: translateY(0); }
 
     /* FULL BIO MODAL */
