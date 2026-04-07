@@ -217,6 +217,13 @@
     html.light-mode .contact-left > p { color: rgba(26,23,20,0.62); }
     html.light-mode .contact-info-item { border-color: rgba(26,23,20,0.1); color: var(--white); }
     html.light-mode .contact-show, html.light-mode .contact-show-info { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+    html.light-mode .contact-show p { color: #2A2A2A; }
+    html.light-mode .hero-eyebrow { color: #2A2A2A; }
+    html.light-mode .hero-since { color: #2A2A2A; }
+    html.light-mode .btn-solid { color: #F5F3E8; }
+    html.light-mode .btn-solid:hover { background: #F5F3E8; color: #2F3F63; border-color: #2F3F63; }
+    html.light-mode .submit-btn { color: #F5F3E8; border: 1.5px solid var(--red); }
+    html.light-mode .submit-btn:hover { background: #F5F3E8; color: #2F3F63; }
     html.light-mode .field input, html.light-mode .field textarea, html.light-mode .field select { background: rgba(26,23,20,0.04); border-color: rgba(26,23,20,0.12); color: var(--white); }
     html.light-mode .field select option { background: var(--black); }
     html.light-mode .field input:focus, html.light-mode .field textarea:focus, html.light-mode .field select:focus { background: rgba(47,63,99,0.04); }
@@ -233,7 +240,6 @@
     html.light-mode .footer-social a:hover { color: var(--white); }
     html.light-mode .mobile-menu { background: rgba(245,243,232,0.98); }
     html.light-mode .insta-iframe { background: var(--panel); }
-    html.light-mode .hero-since { color: rgba(26,23,20,0.4); }
 
     @media (max-width:900px) {
       nav { padding:0 1.5rem; } .nav-links { gap:1.5rem; }
@@ -523,7 +529,7 @@
 
   /* Bios */
   const members = [
-    { name:"G-SU PAEK", tag:"Co-Founding Member · He/Him", hometown:"Austin, TX", color:"#2a1a14", photo:"images/gsu-paek.jpg",
+    { name:"G-SU PAEK", tag:"Co-Founding Member · He/Him", hometown:"Austin, TX", color:"#2a1a14", photo:"images/gsu-paek.jpg", modalPhotoPos:"center 30%",
       desc:"A longtime improv veteran who has performed at hundreds of venues and festivals across the country. Co-founder of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe.",
       full:"G-Su Paek is a longtime improv veteran and has performed at hundreds of venues and a handful of festivals across the country. He is also an accomplished actor, comedian, and one of the founders of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe. You can find G-Su performing and teaching improv mainly at the Fallout Theater in Austin, Texas or follow him on instagram: @gsu.paek" },
     { name:"VIRGIL SHELBY", tag:"Co-Founding Member · They/Them", hometown:"Austin, TX", color:"#12201a",
@@ -554,7 +560,7 @@
     const img = document.getElementById('modal-img');
     if (m.photo) {
       img.style.cssText = `background:#0e0e0e;padding:0;`;
-      img.innerHTML = `<img src="${m.photo}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;object-position:top;">`;
+      img.innerHTML = `<img src="${m.photo}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;object-position:${m.modalPhotoPos || 'top'};">`;
     } else {
       img.style.cssText = `background:linear-gradient(160deg,${m.color} 0%,#0e0e0e 100%);color:rgba(212,65,49,0.12);font-size:7rem;display:flex;align-items:center;justify-content:center;`;
       img.innerHTML = m.name.charAt(0);
