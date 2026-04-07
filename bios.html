@@ -86,7 +86,7 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About Us</a></li>
     <li><a href="bios.html" class="active">Bios</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="gallery.html">Social Media</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
@@ -126,7 +126,7 @@
 
 <script>
   const members = [
-    { name: "G-SU PAEK", tag: "Co-Founding Member · He/Him", hometown: "Austin, TX", color: "#2a1a14",
+    { name: "G-SU PAEK", tag: "Co-Founding Member · He/Him", hometown: "Austin, TX", color: "#2a1a14", photo: "images/gsu-paek.jpg",
       desc: "A longtime improv veteran who has performed at hundreds of venues and festivals across the country. Co-founder of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe.",
       full: "G-Su Paek is a longtime improv veteran and has performed at hundreds of venues and a handful of festivals across the country. He is also an accomplished actor, comedian, and one of the founders of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe. You can find G-Su performing and teaching improv mainly at the Fallout Theater in Austin, Texas or follow him on instagram: @gsu.paek" },
     { name: "VIRGIL SHELBY", tag: "Co-Founding Member · They/Them", hometown: "Austin, TX", color: "#12201a",
@@ -147,8 +147,10 @@
   members.forEach((m, i) => {
     const card = document.createElement('div');
     card.className = 'bio-card';
-    card.innerHTML = `
-      <div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">${m.name.charAt(0)}</div>
+    const imgEl = m.photo
+      ? `<img class="bio-img" src="${m.photo}" alt="${m.name}" loading="lazy">`
+      : `<div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">${m.name.charAt(0)}</div>`;
+    card.innerHTML = `${imgEl}
       <div class="bio-overlay">
         <div class="bio-tag">${m.tag}</div>
         <div class="bio-name">${m.name}</div>
@@ -160,12 +162,18 @@
   });
 
   function openModal(m) {
-    document.getElementById('modal-img').style.background = `linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%)`;
-    document.getElementById('modal-img').textContent = m.name.charAt(0);
+    const img = document.getElementById('modal-img');
+    if (m.photo) {
+      img.style.cssText = 'background:#0e0e0e;padding:0;';
+      img.innerHTML = `<img src="${m.photo}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;object-position:top;">`;
+    } else {
+      img.style.background = `linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%)`;
+      img.textContent = m.name.charAt(0);
+    }
     document.getElementById('modal-tag').textContent = m.tag;
     document.getElementById('modal-name').textContent = m.name;
     document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
-    document.getElementById('modal-text').textContent = m.full;
+    document.getElementById('modal-text').textContent = m.full || m.desc;
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
