@@ -606,7 +606,7 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 
   /* Contact form */
-  function submitForm() {
+  async function submitForm() {
     const fields = ['fname','lname','email','reason','message'];
     let valid = true;
     fields.forEach(f => {
@@ -614,8 +614,39 @@
       if (!el.value.trim()) { el.style.borderColor='var(--red)'; valid=false; setTimeout(()=>el.style.borderColor='',2500); }
     });
     if (!valid) return;
-    document.getElementById('contact-form').style.display='none';
-    document.getElementById('form-success').style.display='block';
+
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = {
+      name: document.getElementById('fname').value.trim() + ' ' + document.getElementById('lname').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      reason: document.getElementById('reason').value,
+      message: document.getElementById('message').value.trim(),
+      _replyto: document.getElementById('email').value.trim(),
+      _subject: 'YWA Contact: ' + document.getElementById('reason').value,
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xkopendr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        document.getElementById('contact-form').style.display='none';
+        document.getElementById('form-success').style.display='block';
+      } else {
+        btn.textContent = 'Send It →';
+        btn.disabled = false;
+        alert('Something went wrong. Please email us directly at yallweasian@gmail.com');
+      }
+    } catch {
+      btn.textContent = 'Send It →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at yallweasian@gmail.com');
+    }
   }
 </script>
 </body>
