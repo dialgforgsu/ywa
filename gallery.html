@@ -36,39 +36,14 @@
     .gallery-header h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 0.03em; }
     .gallery-header p { font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; line-height: 1.6; }
 
-    .gallery-filter { max-width: 1200px; margin: 0 auto 2.5rem; padding: 0 3rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .filter-btn { padding: 0.4rem 1.2rem; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.15); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; font-family: var(--font-body); }
-    .filter-btn:hover { border-color: var(--white); color: var(--white); }
-    .filter-btn.active { background: var(--red); border-color: var(--red); color: var(--white); }
-
-    .masonry { max-width: 1200px; margin: 0 auto; padding: 0 3rem; columns: 3; column-gap: 4px; }
-    .masonry-item { break-inside: avoid; margin-bottom: 4px; overflow: hidden; position: relative; cursor: pointer; }
-    .masonry-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
-    .gallery-img-placeholder { width: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); color: rgba(232,23,58,0.15); transition: filter 0.3s; }
-    .masonry-item:hover .gallery-img-placeholder { filter: brightness(0.6); }
-    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem 1.2rem; background: linear-gradient(to top, rgba(10,10,10,0.9), transparent); font-size: 0.72rem; letter-spacing: 0.1em; color: rgba(240,237,230,0.8); opacity: 0; transform: translateY(4px); transition: opacity 0.25s, transform 0.25s; }
-
-    /* UPLOAD ZONE */
-    .upload-section { max-width: 1200px; margin: 4rem auto 0; padding: 0 3rem; }
-    .upload-zone { border: 1.5px dashed rgba(255,255,255,0.15); padding: 3rem 2rem; text-align: center; transition: border-color 0.2s, background 0.2s; cursor: pointer; }
-    .upload-zone:hover, .upload-zone.dragover { border-color: var(--red); background: rgba(232,23,58,0.04); }
-    .upload-icon { font-size: 2rem; color: var(--muted); margin-bottom: 0.8rem; }
-    .upload-zone h3 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
-    .upload-zone p { font-size: 0.82rem; color: var(--muted); }
-    .upload-zone input[type="file"] { display: none; }
-
-    /* LIGHTBOX */
-    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 200; align-items: center; justify-content: center; padding: 2rem; }
-    .lightbox.open { display: flex; }
-    .lightbox-inner { position: relative; max-width: 900px; width: 100%; }
-    .lightbox-img-placeholder { width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10rem; }
-    .lightbox-caption { text-align: center; margin-top: 1rem; font-size: 0.8rem; letter-spacing: 0.12em; color: var(--muted); }
-    .lightbox-close { position: fixed; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.07); border: none; color: var(--white); font-size: 1.2rem; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 201; }
-    .lightbox-close:hover { background: var(--red); }
-    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.07); border: none; color: var(--white); font-size: 1.4rem; width: 44px; height: 44px; cursor: pointer; transition: background 0.2s; z-index: 201; display: flex; align-items: center; justify-content: center; }
-    .lightbox-nav:hover { background: var(--red); }
-    .lightbox-prev { left: 1rem; }
-    .lightbox-next { right: 1rem; }
+    /* SOCIAL FEEDS */
+    .social-feeds { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .social-col .section-label { margin-bottom: 0.4rem; }
+    .feed-handle { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 1.4rem; opacity: 0.65; }
+    .insta-feed-box { border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
+    .insta-feed-box p { font-size: 0.88rem; line-height: 1.75; color: var(--muted); }
+    .insta-follow-btn { display: inline-block; padding: 0.75rem 2.2rem; border: 1.5px solid rgba(240,237,230,0.35); color: var(--white); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; font-family: var(--font-body); transition: border-color 0.2s, transform 0.15s; }
+    .insta-follow-btn:hover { border-color: var(--white); transform: translateY(-2px); }
 
     /* FOOTER */
     footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; margin-top: 5rem; }
@@ -79,8 +54,8 @@
     .footer-social a { font-size: 0.72rem; text-decoration: none; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
     .footer-social a:hover { color: var(--red); }
 
-    @media (max-width: 900px) { nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; } .masonry { columns: 2; padding: 0 1.5rem; } .gallery-header, .gallery-filter, .upload-section { padding: 0 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; } }
-    @media (max-width: 600px) { .nav-links { display: none; } .masonry { columns: 1; } }
+    @media (max-width: 900px) { nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; } .gallery-header, .social-feeds { padding: 0 1.5rem; } .social-feeds { grid-template-columns: 1fr; gap: 2.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; } }
+    @media (max-width: 600px) { .nav-links { display: none; } }
   </style>
 </head>
 <body>
@@ -103,35 +78,23 @@
     <p>Photos from shows, events, and behind the scenes. Click any image to expand.</p>
   </div>
 
-  <div class="gallery-filter">
-    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
-    <button class="filter-btn" onclick="filterGallery('shows', this)">Shows</button>
-    <button class="filter-btn" onclick="filterGallery('behind', this)">Behind the Scenes</button>
-    <button class="filter-btn" onclick="filterGallery('events', this)">Events</button>
-  </div>
-
-  <div class="masonry" id="masonry-grid"></div>
-
-  <div class="upload-section">
-    <label class="upload-zone" id="upload-zone">
-      <div class="upload-icon">⊕</div>
-      <h3>ADD PHOTOS</h3>
-      <p>Drag & drop images here, or click to browse. JPG, PNG, WEBP accepted.</p>
-      <input type="file" id="file-input" multiple accept="image/*">
-    </label>
+  <div class="social-feeds">
+    <div class="social-col">
+      <p class="section-label">TikTok</p>
+      <div class="feed-handle">@YWAIMPROV</div>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ywaimprov" data-unique-id="ywaimprov" data-embed-type="creator" style="max-width:100%;min-width:288px;"><section></section></blockquote>
+      <script async src="https://www.tiktok.com/embed.js"></script>
+    </div>
+    <div class="social-col">
+      <p class="section-label">Instagram</p>
+      <div class="feed-handle">@YALLWEASIAN</div>
+      <div class="insta-feed-box">
+        <p>Follow our latest shows, behind-the-scenes moments, and more on Instagram.</p>
+        <a href="https://www.instagram.com/yallweasian" target="_blank" class="insta-follow-btn">View on Instagram →</a>
+      </div>
+    </div>
   </div>
 </main>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightboxOverlay(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
-  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
-  <div class="lightbox-inner">
-    <div class="lightbox-img-placeholder" id="lb-img"></div>
-    <div class="lightbox-caption" id="lb-caption"></div>
-  </div>
-</div>
 
 <footer>
   <div class="footer-logo">Y'ALL <span>WE</span> ASIAN</div>
@@ -143,91 +106,5 @@
   </div>
 </footer>
 
-<script>
-  const placeholderPhotos = [
-    { h: 340, label: "Opening Night — The Paramount", cat: "shows", bg: "#1a0f0f", icon: "◉" },
-    { h: 220, label: "Pre-show warmup", cat: "behind", bg: "#0f1a12", icon: "◉" },
-    { h: 280, label: "AAPI Heritage Month Show", cat: "events", bg: "#0f0f1a", icon: "◉" },
-    { h: 200, label: "Late Night Jam Vol. 3", cat: "shows", bg: "#1a1408", icon: "◉" },
-    { h: 360, label: "Backstage: Kevin does the voice", cat: "behind", bg: "#120f1a", icon: "◉" },
-    { h: 240, label: "Community Festival Performance", cat: "events", bg: "#0f1a18", icon: "◉" },
-    { h: 300, label: "Friday Night Mainstage", cat: "shows", bg: "#1a100f", icon: "◉" },
-    { h: 200, label: "Rehearsal at the warehouse", cat: "behind", bg: "#141a0f", icon: "◉" },
-    { h: 260, label: "New Year's Showcase", cat: "events", bg: "#0f0f12", icon: "◉" },
-  ];
-
-  const masonry = document.getElementById('masonry-grid');
-  let allItems = [];
-  let currentIndex = 0;
-
-  placeholderPhotos.forEach((p, i) => {
-    const div = document.createElement('div');
-    div.className = 'masonry-item';
-    div.dataset.cat = p.cat;
-    div.dataset.index = i;
-    div.innerHTML = `
-      <div class="gallery-img-placeholder" style="height:${p.h}px; background: linear-gradient(160deg, ${p.bg} 0%, #0a0a0a 100%); font-size: ${p.h * 0.18}px; color: rgba(232,23,58,0.12);">${p.icon}</div>
-      <div class="gallery-caption">${p.label}</div>`;
-    div.addEventListener('click', () => openLightbox(i, p));
-    masonry.appendChild(div);
-    allItems.push({ el: div, data: p });
-  });
-
-  function filterGallery(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    allItems.forEach(item => {
-      item.el.style.display = (cat === 'all' || item.data.cat === cat) ? 'block' : 'none';
-    });
-  }
-
-  function openLightbox(i, p) {
-    currentIndex = i;
-    const lb = document.getElementById('lightbox');
-    document.getElementById('lb-img').style.background = `linear-gradient(160deg, ${p.bg} 0%, #0a0a0a 100%)`;
-    document.getElementById('lb-img').style.color = 'rgba(232,23,58,0.1)';
-    document.getElementById('lb-img').style.fontSize = '10rem';
-    document.getElementById('lb-img').textContent = p.icon;
-    document.getElementById('lb-caption').textContent = p.label;
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
-  function closeLightboxOverlay(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
-  function lightboxNav(dir) {
-    currentIndex = (currentIndex + dir + placeholderPhotos.length) % placeholderPhotos.length;
-    openLightbox(currentIndex, placeholderPhotos[currentIndex]);
-  }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-    if (e.key === 'ArrowRight') lightboxNav(1);
-  });
-
-  // Upload zone
-  const zone = document.getElementById('upload-zone');
-  const fileInput = document.getElementById('file-input');
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-  zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
-  fileInput.addEventListener('change', () => handleFiles(fileInput.files));
-
-  function handleFiles(files) {
-    Array.from(files).forEach(file => {
-      if (!file.type.startsWith('image/')) return;
-      const url = URL.createObjectURL(file);
-      const heights = [200, 240, 280, 320, 260];
-      const h = heights[Math.floor(Math.random() * heights.length)];
-      const div = document.createElement('div');
-      div.className = 'masonry-item';
-      div.dataset.cat = 'all';
-      div.innerHTML = `
-        <img src="${url}" style="width:100%; height:${h}px; object-fit:cover; display:block; transition: filter 0.3s;" onmouseover="this.style.filter='brightness(0.6)'" onmouseout="this.style.filter=''">
-        <div class="gallery-caption">${file.name.replace(/\.[^.]+$/, '')}</div>`;
-      masonry.insertBefore(div, masonry.firstChild);
-      allItems.unshift({ el: div, data: { cat: 'all', label: file.name } });
-    });
-  }
-</script>
 </body>
 </html>
