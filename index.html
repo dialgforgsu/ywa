@@ -88,13 +88,13 @@
     .btn-outline:hover { border-color:var(--white); transform:translateY(-2px); }
 
     /* ════════════ ABOUT ════════════ */
-    #about { display:flex; align-items:center; padding:100px 0 60px; }
-    .about-layout { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; width:100%; }
-    .about-left h1 { font-family:var(--font-display); font-size:clamp(3rem,6vw,5.5rem); line-height:1; letter-spacing:0.03em; margin-bottom:2rem; }
-    .about-left h1 em { font-style:italic; font-family:var(--font-accent); color:var(--gold); font-size:0.65em; vertical-align:super; }
-    .about-right p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
-    .about-right p strong { color:var(--white); font-weight:600; }
-    .about-pillars { margin-top:3rem; display:grid; grid-template-columns:1fr 1fr; gap:1px; border:1px solid rgba(255,255,255,0.08); }
+    #about { display:flex; flex-direction:column; justify-content:center; padding:100px 0 60px; }
+    .about-section-header { max-width:1200px; margin:0 auto 2.5rem; padding:0 3rem; width:100%; }
+    .about-section-header h1 { font-family:var(--font-display); font-size:clamp(3rem,6vw,5.5rem); line-height:1; letter-spacing:0.03em; }
+    .about-layout { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; width:100%; }
+    .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
+    .about-text p strong { color:var(--white); font-weight:600; }
+    .about-pillars { display:grid; grid-template-columns:1fr 1fr; gap:1px; border:1px solid rgba(255,255,255,0.08); }
     .pillar { padding:1.5rem; border:1px solid rgba(255,255,255,0.04); transition:background 0.2s; }
     .pillar:hover { background:rgba(212,65,49,0.06); }
     .pillar-num { font-family:var(--font-display); font-size:2.5rem; color:var(--red); opacity:0.4; line-height:1; }
@@ -142,11 +142,9 @@
     .social-feeds { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
     .social-col .section-label { margin-bottom:0.4rem; }
     .feed-handle { font-family:var(--font-display); font-size:1.5rem; letter-spacing:0.06em; margin-bottom:1.4rem; opacity:0.65; }
-    .insta-iframe { width:100%; height:360px; border:none; background:var(--panel); display:block; }
-    .open-tiktok-btn { display:inline-block; margin-top:1rem; padding:0.65rem 1.8rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; font-family:var(--font-body); text-decoration:none; border:1.5px solid rgba(245,243,232,0.3); color:var(--white); transition:border-color 0.2s, color 0.2s; }
-    .open-tiktok-btn:hover { border-color:var(--white); }
-    html.light-mode .open-tiktok-btn { background:var(--red); border-color:var(--red); color:#F5F3E8; }
-    html.light-mode .open-tiktok-btn:hover { background:#F5F3E8; color:var(--red); }
+    .embed-box { height:680px; overflow:hidden; position:relative; }
+    .embed-box blockquote { margin:0; }
+    .insta-iframe { width:100%; height:100%; border:none; background:var(--panel); display:block; }
 
     /* ════════════ CONTACT ════════════ */
     #contact { padding:100px 0 60px; }
@@ -213,8 +211,8 @@
     html.light-mode .mode-toggle { border-color: rgba(26,23,20,0.2); }
     html.light-mode .hero-grid { background-image: linear-gradient(rgba(26,23,20,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(26,23,20,0.04) 1px, transparent 1px); }
     html.light-mode .hero-bg { background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(47,63,99,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%); }
-    html.light-mode .about-right p { color: rgba(26,23,20,0.72); }
-    html.light-mode .about-right p strong { color: var(--white); }
+    html.light-mode .about-text p { color: rgba(26,23,20,0.72); }
+    html.light-mode .about-text p strong { color: var(--white); }
     html.light-mode .about-pillars { border-color: rgba(26,23,20,0.1); }
     html.light-mode .pillar { border-color: rgba(26,23,20,0.06); }
     html.light-mode .pillar:hover { background: rgba(47,63,99,0.06); }
@@ -253,7 +251,7 @@
 
     @media (max-width:900px) {
       nav { padding:0 1.5rem; } .nav-links { gap:1.5rem; }
-      .about-layout { grid-template-columns:1fr; gap:2.5rem; padding:0 1.5rem; }
+      .about-section-header { padding:0 1.5rem; } .about-layout { grid-template-columns:1fr; gap:2.5rem; padding:0 1.5rem; }
       .contact-wrap { grid-template-columns:1fr; gap:3rem; padding:0 1.5rem; }
       .bios-header,.bios-grid { padding:0 1.5rem; }
       .gallery-header,.social-feeds { padding:0 1.5rem; }
@@ -341,21 +339,21 @@
 
   <!-- ABOUT -->
   <section id="about">
+    <div class="about-section-header">
+      <p class="section-label">Our Story</p>
+      <h1>ABOUT US</h1>
+    </div>
     <div class="about-layout">
-      <div class="about-left">
-        <p class="section-label">Our Story</p>
-        <h1>ABOUT<br>US</h1>
-      </div>
-      <div class="about-right">
+      <div class="about-text">
         <p><strong>Y'all We Asian</strong> is Austin's boldest, most chaotic, and most heartfelt improv comedy troupe. We were born out of a simple observation: there weren't enough Asian-American voices on the improv stage — so we climbed up there ourselves.</p>
         <p>We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.</p>
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
-        <div class="about-pillars">
-          <div class="pillar"><div class="pillar-num">01</div><h3>Authentic</h3><p>Real stories from real people. No filter, no apologies.</p></div>
-          <div class="pillar"><div class="pillar-num">02</div><h3>Community</h3><p>We uplift each other on and off the stage.</p></div>
-          <div class="pillar"><div class="pillar-num">03</div><h3>Fearless</h3><p>We go there. Every time. That's the deal.</p></div>
-          <div class="pillar"><div class="pillar-num">04</div><h3>Joyful</h3><p>Comedy is how we make sense of the world.</p></div>
-        </div>
+      </div>
+      <div class="about-pillars">
+        <div class="pillar"><div class="pillar-num">01</div><h3>Authentic</h3><p>Real stories from real people. No filter, no apologies.</p></div>
+        <div class="pillar"><div class="pillar-num">02</div><h3>Community</h3><p>We uplift each other on and off the stage.</p></div>
+        <div class="pillar"><div class="pillar-num">03</div><h3>Fearless</h3><p>We go there. Every time. That's the deal.</p></div>
+        <div class="pillar"><div class="pillar-num">04</div><h3>Joyful</h3><p>Comedy is how we make sense of the world.</p></div>
       </div>
     </div>
   </section>
@@ -364,7 +362,7 @@
   <section id="bios">
     <div class="bios-header">
       <p class="section-label">The Ensemble</p>
-      <h1>MEET<br>THE CAST</h1>
+      <h1>MEET THE CAST</h1>
     </div>
     <div class="bios-grid" id="bios-grid"></div>
   </section>
@@ -379,14 +377,17 @@
       <div class="social-col">
         <p class="section-label">TikTok</p>
         <div class="feed-handle">@YWAIMPROV</div>
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ywaimprov" data-unique-id="ywaimprov" data-embed-type="creator" style="max-width:100%;min-width:288px;"><section></section></blockquote>
-        <script async src="https://www.tiktok.com/embed.js"></script>
-        <a href="https://www.tiktok.com/@ywaimprov" target="_blank" class="open-tiktok-btn">Open TikTok ↗</a>
+        <div class="embed-box">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ywaimprov" data-unique-id="ywaimprov" data-embed-type="creator" style="max-width:100%;min-width:288px;"><section></section></blockquote>
+          <script async src="https://www.tiktok.com/embed.js"></script>
+        </div>
       </div>
       <div class="social-col">
         <p class="section-label">Instagram</p>
         <div class="feed-handle">@YALLWEASIAN</div>
-        <iframe src="https://www.instagram.com/yallweasian/embed" class="insta-iframe" frameborder="0" scrolling="no" allowtransparency="true" title="Y'all We Asian on Instagram"></iframe>
+        <div class="embed-box">
+          <iframe src="https://www.instagram.com/yallweasian/embed" class="insta-iframe" frameborder="0" scrolling="no" allowtransparency="true" title="Y'all We Asian on Instagram"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -396,7 +397,7 @@
     <div class="contact-wrap">
       <div class="contact-left">
         <p class="section-label">Get In Touch</p>
-        <h1>LET'S<br>TALK</h1>
+        <h1>LET'S TALK</h1>
         <p>Want to book us for your event, collaborate on a project, or just tell us we're hilarious? We want to hear from you.</p>
         <a class="contact-info-item" href="mailto:yallweasian@gmail.com">
           <div class="ci-icon">✉</div>
