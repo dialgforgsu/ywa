@@ -44,11 +44,13 @@
     .bio-img-placeholder { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 5rem; color: rgba(232,23,58,0.2); transition: filter 0.3s; filter: brightness(0.75); }
     .bio-card:hover .bio-img-placeholder { filter: brightness(0.45); }
     .bio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.55) 45%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.6rem; opacity: 1; }
-    .bio-tag { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; order: 2; }
-    .bio-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.35rem; order: 3; }
-    .bio-hometown { font-size: 0.76rem; color: rgba(240,237,230,0.78); letter-spacing: 0.08em; order: 4; }
-    .bio-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(240,237,230,0.82); margin-bottom: 0.75rem; order: 1; opacity: 0; transform: translateY(8px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; }
+    .bio-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(240,237,230,0.82); margin-bottom: 0.85rem; opacity: 0; transform: translateY(8px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; }
     .bio-card:hover .bio-desc { opacity: 1; transform: translateY(0); }
+    .bio-role { font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 0.22rem; }
+    .bio-since { font-size: 0.68rem; letter-spacing: 0.12em; color: rgba(240,237,230,0.65); margin-bottom: 0.18rem; }
+    .bio-pronouns { font-size: 0.68rem; letter-spacing: 0.12em; color: rgba(240,237,230,0.52); margin-bottom: 0.55rem; }
+    .bio-name { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.35rem; }
+    .bio-hometown { font-size: 0.76rem; color: rgba(240,237,230,0.78); letter-spacing: 0.08em; }
 
     /* FULL BIO MODAL */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(6px); }
@@ -126,19 +128,19 @@
 
 <script>
   const members = [
-    { name: "G-SU PAEK", tag: "Co-Founding Member · He/Him", hometown: "South Korea → Austin, TX", color: "#2a1a14", photo: "images/gsu-paek.jpg",
+    { name: "G-SU PAEK", role: "Co-Founding Member", since: "2017", pronouns: "He/Him", hometown: "South Korea → Austin, TX", color: "#2a1a14", photo: "images/gsu-paek.jpg",
       desc: "A longtime improv veteran who has performed at hundreds of venues and festivals across the country. Co-founder of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe.",
       full: "G-Su Paek is a longtime improv veteran and has performed at hundreds of venues and a handful of festivals across the country. He is also an accomplished actor, comedian, and one of the founders of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe. You can find G-Su performing and teaching improv mainly at the Fallout Theater in Austin, Texas or follow him on instagram: @gsu.paek" },
-    { name: "VIRGIL SHELBY", tag: "Co-Founding Member · They/Them", hometown: "Singapore → Austin, TX", color: "#12201a", photo: "images/virgil-shelby.png",
+    { name: "VIRGIL SHELBY", role: "Co-Founding Member", since: "2017", pronouns: "They/Them", hometown: "Singapore → Austin, TX", color: "#12201a", photo: "images/virgil-shelby.png",
       desc: "An actor, comedian, and performer based in Austin, TX. One of the five co-owners of Fallout Theater and a member of Hot Pot Comedy and Y’all We Asian.",
       full: "Virgil Shelby is an actor, comedian, and performer based in Austin, TX. They are one of the five co-owners of Fallout Theater, as well as a member of incredibly famous and well-known comedy troupes such as Hot Pot Comedy and Y’all We Asian. Offstage, you can find them trying to befriend stray cats or on social media at @virgillikesyou" },
-    { name: "UDAY WAGHMARE", tag: "Ensemble · He/Him · 2019–Present", hometown: "India → Austin, TX", color: "#1a1a24",
+    { name: "UDAY WAGHMARE", role: "Ensemble", since: "2019", pronouns: "He/Him", hometown: "India → Austin, TX", color: "#1a1a24",
       desc: "Originally from Mumbai, Uday has been in Austin for about 9 years. A ColdTowne graduate and part of the Age/Sex/Location troupe that won ThrowDowne.",
       full: "Uday Waghmare is originally from Mumbai India, and he’s been in Austin for about 9 years, working for a tech company. Uday graduated from ColdTowne. At first, he hated improv, but he’s come around to find it’s FUN! He was part of Age/Sex/Location troupe that won ThrowDowne last year." },
-    { name: "NORMAN TRAN", tag: "Ensemble · He/Him · 2019–Present", hometown: "Austin, TX", color: "#1a1424",
+    { name: "NORMAN TRAN", role: "Ensemble", since: "2019", pronouns: "He/Him", hometown: "Austin, TX", color: "#1a1424",
       desc: "Norman has been doing improv in Austin, TX for about a decade. After his day job as a software engineer he thinks creating things with friends is the best part of life.",
       full: "Norman Tran has been doing improv in Austin, TX for about a decade. After his day job as a software engineer he thinks creating things with friends is the best part of life." },
-    { name: "MARY VO", tag: "Ensemble · She/Her · 2021–Present", hometown: "Austin, TX", color: "#141a20",
+    { name: "MARY VO", role: "Ensemble", since: "2021", pronouns: "She/Her", hometown: "Austin, TX", color: "#141a20",
       desc: "A maker of laughs and pastries. Performing improv since 2019, also seen in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady.",
       full: "Mary Vo is a maker of laughs and pastries. She has been doing improv since 2019 and has also performed in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady. Follow her on Instagram: @contraryvo" },
   ];
@@ -152,10 +154,12 @@
       : `<div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">${m.name.charAt(0)}</div>`;
     card.innerHTML = `${imgEl}
       <div class="bio-overlay">
-        <div class="bio-tag">${m.tag}</div>
+        <div class="bio-desc">${m.desc}</div>
+        <div class="bio-role">${m.role}</div>
+        <div class="bio-since">${m.since} – Present</div>
+        <div class="bio-pronouns">${m.pronouns}</div>
         <div class="bio-name">${m.name}</div>
         <div class="bio-hometown">📍 ${m.hometown}</div>
-        <div class="bio-desc">${m.desc}</div>
       </div>`;
     card.addEventListener('click', () => openModal(m));
     grid.appendChild(card);
@@ -170,7 +174,7 @@
       img.style.background = `linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%)`;
       img.textContent = m.name.charAt(0);
     }
-    document.getElementById('modal-tag').textContent = m.tag;
+    document.getElementById('modal-tag').textContent = `${m.role}  ·  ${m.since} – Present  ·  ${m.pronouns}`;
     document.getElementById('modal-name').textContent = m.name;
     document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
     document.getElementById('modal-text').textContent = m.full || m.desc;
