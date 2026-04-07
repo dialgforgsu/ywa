@@ -142,7 +142,11 @@
     .social-feeds { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
     .social-col .section-label { margin-bottom:0.4rem; }
     .feed-handle { font-family:var(--font-display); font-size:1.5rem; letter-spacing:0.06em; margin-bottom:1.4rem; opacity:0.65; }
-    .insta-iframe { width:100%; height:680px; border:none; background:var(--panel); display:block; }
+    .insta-iframe { width:100%; height:360px; border:none; background:var(--panel); display:block; }
+    .open-tiktok-btn { display:inline-block; margin-top:1rem; padding:0.65rem 1.8rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; font-family:var(--font-body); text-decoration:none; border:1.5px solid rgba(245,243,232,0.3); color:var(--white); transition:border-color 0.2s, color 0.2s; }
+    .open-tiktok-btn:hover { border-color:var(--white); }
+    html.light-mode .open-tiktok-btn { background:var(--red); border-color:var(--red); color:#F5F3E8; }
+    html.light-mode .open-tiktok-btn:hover { background:#F5F3E8; color:var(--red); }
 
     /* ════════════ CONTACT ════════════ */
     #contact { padding:100px 0 60px; }
@@ -214,6 +218,7 @@
     html.light-mode .about-pillars { border-color: rgba(26,23,20,0.1); }
     html.light-mode .pillar { border-color: rgba(26,23,20,0.06); }
     html.light-mode .pillar:hover { background: rgba(47,63,99,0.06); }
+    html.light-mode .pillar-num { opacity: 1; }
     html.light-mode .pillar p { color: var(--muted); }
     html.light-mode .contact-left > p { color: rgba(26,23,20,0.62); }
     html.light-mode .contact-info-item { border-color: rgba(26,23,20,0.1); color: var(--white); }
@@ -376,6 +381,7 @@
         <div class="feed-handle">@YWAIMPROV</div>
         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@ywaimprov" data-unique-id="ywaimprov" data-embed-type="creator" style="max-width:100%;min-width:288px;"><section></section></blockquote>
         <script async src="https://www.tiktok.com/embed.js"></script>
+        <a href="https://www.tiktok.com/@ywaimprov" target="_blank" class="open-tiktok-btn">Open TikTok ↗</a>
       </div>
       <div class="social-col">
         <p class="section-label">Instagram</p>
@@ -549,6 +555,18 @@
     { name:"MARY VO", role:"Ensemble", since:"2021", pronouns:"She/Her", hometown:"Austin, TX", color:"#141a20",
       desc:"A maker of laughs and pastries. Performing improv since 2019, also seen in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady.",
       full:"Mary Vo is a maker of laughs and pastries. She has been doing improv since 2019 and has also performed in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady. Follow her on Instagram: @contraryvo" },
+    { name:"NICK FUNG", role:"Ensemble", since:"2021", pronouns:"He/Him", hometown:"Austin, TX", color:"#141a0f",
+      desc:"An Austin-based improviser, actor, and sketch writer. Founder of Silk Mangos, the first Asian American theater troupe at UT Austin. Known to sleep diagonally and doesn't think it's weird.",
+      full:"Nick Fung is a fun guy. An Austin-based improviser, actor, and sketch writer. He's a thankful graduate of both ColdTowne Conservatory and Fallout Theater. Other credits include founder of Silk Mangos, the first Asian American theater troupe at UT Austin. He's also been known to sleep diagonally and doesn't think it's weird. Follow him on Instagram: @a_fung_guy" },
+    { name:"SUNNY HUANG", role:"Ensemble", since:"2021", pronouns:"She/Her", hometown:"Los Angeles, CA → Austin, TX", color:"#201410",
+      desc:"An Austin-based improviser and actress recently moved from Los Angeles. Studied at UCB and performed with Mess Hall team Bordeaux. Briefly ate an ice cream cone in a John Legend music video.",
+      full:"Sunny Huang is an Austin-based improviser and actress who recently moved from Los Angeles. Sunny has been improvising since 2015 and studied at the Upright Citizens Brigade, where she performed with Mess Hall team, Bordeaux, as well as multiple indie teams. To date, her greatest artistic accomplishment is briefly eating an ice cream cone in a John Legend music video. Sunny is represented by Collier Talent Agency." },
+    { name:"ATTIYA ALI", role:"Ensemble", since:"2024", pronouns:"", hometown:"Austin, TX", color:"#0f1a18",
+      desc:"",
+      full:"" },
+    { name:"ANANYA ROY", role:"Ensemble", since:"2024", pronouns:"", hometown:"Austin, TX", color:"#1a0f18",
+      desc:"",
+      full:"" },
   ];
   const biosGrid = document.getElementById('bios-grid');
   members.forEach(m => {
@@ -557,7 +575,7 @@
     const imgEl = m.photo
       ? `<img class="bio-img" src="${m.photo}" alt="${m.name}" loading="lazy">`
       : `<div class="bio-img-placeholder" style="background:linear-gradient(160deg,${m.color} 0%,#0e0e0e 100%);">${m.name.charAt(0)}</div>`;
-    card.innerHTML = `${imgEl}<div class="bio-overlay"><div class="bio-desc">${m.desc}</div><div class="bio-role">${m.role}</div><div class="bio-since">${m.since} – Present</div><div class="bio-pronouns">${m.pronouns}</div><div class="bio-name">${m.name}</div><div class="bio-hometown">📍 ${m.hometown}</div></div>`;
+    card.innerHTML = `${imgEl}<div class="bio-overlay"><div class="bio-desc">${m.desc}</div><div class="bio-role">${m.role}</div><div class="bio-since">${m.since} – Present</div>${m.pronouns ? `<div class="bio-pronouns">${m.pronouns}</div>` : ''}<div class="bio-name">${m.name}</div><div class="bio-hometown">📍 ${m.hometown}</div></div>`;
     card.addEventListener('click', () => openModal(m));
     biosGrid.appendChild(card);
   });
@@ -570,7 +588,7 @@
       img.style.cssText = `background:linear-gradient(160deg,${m.color} 0%,#0e0e0e 100%);color:rgba(212,65,49,0.12);font-size:7rem;display:flex;align-items:center;justify-content:center;`;
       img.innerHTML = m.name.charAt(0);
     }
-    document.getElementById('modal-tag').textContent = `${m.role}  ·  ${m.since} – Present  ·  ${m.pronouns}`;
+    document.getElementById('modal-tag').textContent = m.pronouns ? `${m.role}  ·  ${m.since} – Present  ·  ${m.pronouns}` : `${m.role}  ·  ${m.since} – Present`;
     document.getElementById('modal-name').textContent = m.name;
     document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
     document.getElementById('modal-text').textContent = m.full || m.desc;
