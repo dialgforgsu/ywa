@@ -92,7 +92,7 @@
     .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
     .about-text p strong { color:var(--white); font-weight:600; }
     .events-list { width:100%; display:flex; flex-direction:column; gap:1px; }
-    .event-item { background:var(--panel); padding:1.2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); display:flex; gap:1.4rem; align-items:flex-start; }
+    .event-item { background:var(--panel); padding:1.2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); display:flex; gap:1.4rem; align-items:center; }
     .event-date-block { flex-shrink:0; text-align:center; width:48px; }
     .event-date-month { font-family:var(--font-accent); font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); }
     .event-date-day { font-family:var(--font-display); font-size:2rem; line-height:1; color:var(--white); }
@@ -100,9 +100,16 @@
     .event-title { font-family:var(--font-display); font-size:1.1rem; letter-spacing:0.04em; color:var(--white); margin-bottom:0.25rem; }
     .event-time { font-size:0.72rem; letter-spacing:0.1em; color:var(--muted); }
     .event-location { font-size:0.72rem; letter-spacing:0.08em; color:var(--muted); margin-top:0.15rem; }
+    .event-actions { display:flex; flex-direction:column; gap:0.5rem; align-items:flex-end; flex-shrink:0; }
+    .event-add-cal { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; border:1px solid rgba(255,255,255,0.12); padding:0.35rem 0.7rem; transition:color 0.2s, border-color 0.2s; white-space:nowrap; }
+    .event-add-cal:hover { color:var(--white); border-color:rgba(255,255,255,0.4); }
+    .event-tickets { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#F5F3E8; background:var(--red); padding:0.4rem 0.85rem; text-decoration:none; transition:background 0.2s; white-space:nowrap; }
+    .event-tickets:hover { background:#ff1f42; }
     .events-empty { font-size:0.85rem; color:var(--muted); padding:1.5rem 0; }
     html.light-mode .event-item { border-color:rgba(26,23,20,0.08); }
     html.light-mode .event-date-day { color:var(--white); }
+    html.light-mode .event-add-cal { border-color:rgba(26,23,20,0.2); }
+    html.light-mode .event-add-cal:hover { color:var(--white); border-color:rgba(26,23,20,0.5); }
 
     /* ════════════ BIOS ════════════ */
     #bios { padding:80px 0 50px; }
@@ -612,19 +619,21 @@
   (async function loadEvents() {
     const CALENDAR_ID = '17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3@group.calendar.google.com';
     const API_KEY = 'AIzaSyC3nw9vDuZODvgOs_CA3iUhp_d_aS4COYI';
+    const EVENTBRITE_URL = 'https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489';
     const container = document.getElementById('events-list');
-    const now = new Date();
-    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    document.getElementById('events-month-label').textContent = monthNames[now.getMonth()] + ' ' + now.getFullYear();
+    document.getElementById('events-month-label').textContent = 'Upcoming Events';
     try {
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-      const monthEnd   = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59).toISOString();
-      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${monthStart}&timeMax=${monthEnd}&singleEvents=true&orderBy=startTime`;
+      const now = new Date();
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&maxResults=5&singleEvents=true&orderBy=startTime`;
       const res = await fetch(url);
       const data = await res.json();
+      if (data.error) {
+        container.innerHTML = `<p class="events-empty">Could not load events. Check back soon!</p>`;
+        return;
+      }
       const items = data.items || [];
       if (!items.length) {
-        container.innerHTML = '<p class="events-empty">No events this month. Check back soon!</p>';
+        container.innerHTML = '<p class="events-empty">No upcoming events. Check back soon!</p>';
         return;
       }
       const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -638,6 +647,11 @@
             (end ? ' – ' + end.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }) : '')
           : 'All Day';
         const location = ev.location ? `<div class="event-location">📍 ${ev.location}</div>` : '';
+        const isFallout = ev.location && ev.location.toLowerCase().includes('fallout');
+        const gcalFmt = d => d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+        const gcalEnd = end || new Date(start.getTime() + 3600000);
+        const addCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(ev.summary||'Event')}&dates=${gcalFmt(start)}/${gcalFmt(gcalEnd)}&location=${encodeURIComponent(ev.location||'')}`;
+        const ticketsBtn = isFallout ? `<a class="event-tickets" href="${EVENTBRITE_URL}" target="_blank">Get Tickets</a>` : '';
         return `<div class="event-item">
           <div class="event-date-block">
             <div class="event-date-month">${month}</div>
@@ -647,6 +661,10 @@
             <div class="event-title">${ev.summary || 'Event'}</div>
             <div class="event-time">${timeStr}</div>
             ${location}
+          </div>
+          <div class="event-actions">
+            ${ticketsBtn}
+            <a class="event-add-cal" href="${addCalUrl}" target="_blank">+ Add to Cal</a>
           </div>
         </div>`;
       }).join('');
