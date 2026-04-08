@@ -103,8 +103,9 @@
     .event-actions { display:flex; flex-direction:column; gap:0.5rem; align-items:flex-end; flex-shrink:0; }
     .event-add-cal { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; border:1px solid rgba(255,255,255,0.12); padding:0.35rem 0.7rem; transition:color 0.2s, border-color 0.2s; white-space:nowrap; }
     .event-add-cal:hover { color:var(--white); border-color:rgba(255,255,255,0.4); }
-    .event-tickets { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#F5F3E8; background:var(--red); border:1.5px solid var(--red); padding:0.4rem 0.85rem; text-decoration:none; transition:background 0.2s, color 0.2s; white-space:nowrap; }
-    .event-tickets:hover { background:transparent; color:#F5F3E8; }
+    .event-tickets { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#F5F3E8; background:var(--red); border:1.5px solid var(--red); padding:0.4rem 0.85rem; text-decoration:none; transition:background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; white-space:nowrap; }
+    .event-tickets:hover { background:#F5F3E8; color:var(--red); border-color:#F5F3E8; transform:translateY(-2px); }
+    html.light-mode .event-tickets:hover { background:#F5F3E8; color:#2F3F63; border-color:#2F3F63; }
     .events-empty { font-size:0.85rem; color:var(--muted); padding:1.5rem 0; }
     html.light-mode .event-item { border-color:rgba(26,23,20,0.08); }
     html.light-mode .event-date-day { color:var(--white); }
