@@ -134,10 +134,10 @@
     { name: "G-SU PAEK", role: "Co-Founding Member", since: "2017", pronouns: "He/Him", hometown: "South Korea → Austin, TX", color: "#2a1a14", photo: "images/gsu-paek.jpg", cardPhotoPos: "center 12%",
       desc: "A longtime improv veteran who has performed at hundreds of venues and festivals across the country. Co-founder of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe.",
       full: "G-Su Paek is a longtime improv veteran and has performed at hundreds of venues and a handful of festivals across the country. He is also an accomplished actor, comedian, and one of the founders of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe. You can find G-Su performing and teaching improv mainly at the Fallout Theater in Austin, Texas or follow him on instagram: @gsu.paek" },
-    { name: "VIRGIL SHELBY", role: "Co-Founding Member", since: "2017", pronouns: "They/Them", hometown: "Singapore → Austin, TX", color: "#12201a", photo: "images/virgil-shelby.png",
+    { name: "VIRGIL SHELBY", role: "Co-Founding Member", since: "2017", pronouns: "They/Them", hometown: "Singapore → Austin, TX", color: "#12201a", photo: "images/virgil-shelby.png", modalFit: "contain",
       desc: "An actor, comedian, and performer based in Austin, TX. One of the five co-owners of Fallout Theater and a member of Hot Pot Comedy and Y’all We Asian.",
       full: "Virgil Shelby is an actor, comedian, and performer based in Austin, TX. They are one of the five co-owners of Fallout Theater, as well as a member of incredibly famous and well-known comedy troupes such as Hot Pot Comedy and Y’all We Asian. Offstage, you can find them trying to befriend stray cats or on social media at @virgillikesyou" },
-    { name: "NICK FUNG", role: "Main Cast", since: "2019", pronouns: "He/Him", hometown: "Austin, TX", color: "#141a0f", photo: "images/nick-fung.jpg",
+    { name: "NICK FUNG", role: "Main Cast", since: "2019", pronouns: "He/Him", hometown: "Austin, TX", color: "#141a0f", photo: "images/nick-fung.jpg", modalFit: "contain",
       desc: "An Austin-based improviser, actor, and sketch writer. Founder of Silk Mangos, the first Asian American theater troupe at UT Austin. Known to sleep diagonally and doesn’t think it’s weird.",
       full: "Nick Fung is a fun guy. An Austin-based improviser, actor, and sketch writer. He’s a thankful graduate of both ColdTowne Conservatory and Fallout Theater. Other credits include founder of Silk Mangos, the first Asian American theater troupe at UT Austin. He’s also been known to sleep diagonally and doesn’t think it’s weird. Follow him on Instagram: @a_fung_guy" },
     { name: "NORMAN TRAN", role: "Main Cast", since: "2019", pronouns: "He/Him", hometown: "Austin, TX", color: "#1a1424", photo: "images/Norman-Tran.jpg",
@@ -183,7 +183,7 @@
     const img = document.getElementById('modal-img');
     if (m.photo) {
       img.style.cssText = 'background:#0e0e0e;padding:0;';
-      img.innerHTML = `<img src="${m.photo}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;object-position:${m.modalPhotoPos || 'top'};">`;
+      img.innerHTML = `<img src="${m.photo}" alt="${m.name}" style="width:100%;height:100%;object-fit:${m.modalFit||'cover'};object-position:${m.modalPhotoPos || 'top'};">`;
     } else {
       img.style.background = `linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%)`;
       img.textContent = m.name.charAt(0);
