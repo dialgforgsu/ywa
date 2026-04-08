@@ -111,6 +111,12 @@
     html.light-mode .event-add-cal { border-color:rgba(26,23,20,0.2); }
     html.light-mode .event-add-cal:hover { color:var(--white); border-color:rgba(26,23,20,0.5); }
 
+    /* ════════════ LIVE SHOWS ════════════ */
+    #shows { padding:100px 0 60px; }
+    .shows-header { max-width:1200px; margin:0 auto 2.5rem; padding:0 3rem; }
+    .shows-header h1 { font-family:var(--font-display); font-size:clamp(3rem,6vw,5.5rem); letter-spacing:0.03em; }
+    .shows-body { max-width:1200px; margin:0 auto; padding:0 3rem; }
+
     /* ════════════ BIOS ════════════ */
     #bios { padding:80px 0 50px; }
     .bios-header { max-width:1200px; margin:0 auto 2.4rem; padding:0 3rem; }
@@ -266,6 +272,7 @@
       nav { padding:0 1.5rem; } .nav-links { gap:1.5rem; }
       .about-section-header { padding:0 1.5rem; } .about-layout { grid-template-columns:1fr; gap:2.5rem; padding:0 1.5rem; }
       .contact-wrap { grid-template-columns:1fr; gap:3rem; padding:0 1.5rem; }
+      .shows-header,.shows-body { padding:0 1.5rem; }
       .bios-header,.bios-grid { padding:0 1.5rem; }
       .gallery-header,.social-feeds { padding:0 1.5rem; }
       .social-feeds { grid-template-columns:1fr; gap:1.5rem; }
@@ -293,6 +300,7 @@
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About Us</a></li>
+    <li><a href="#shows">Live Shows</a></li>
     <li><a href="#bios">Bios</a></li>
     <li><a href="#gallery">Social Media</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -313,6 +321,7 @@
 <div class="mobile-menu" id="mobile-menu">
   <a href="#home"    onclick="closeMobile()">Home</a>
   <a href="#about"   onclick="closeMobile()">About Us</a>
+  <a href="#shows"   onclick="closeMobile()">Live Shows</a>
   <a href="#bios"    onclick="closeMobile()">Bios</a>
   <a href="#gallery" onclick="closeMobile()">Social Media</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
@@ -364,10 +373,17 @@
         <p>We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.</p>
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
       </div>
-      <div>
-        <p class="section-label" id="events-month-label" style="margin-bottom:0.8rem;"></p>
-        <div class="events-list" id="events-list"><p class="events-empty">Loading events…</p></div>
-      </div>
+    </div>
+  </section>
+
+  <!-- LIVE SHOWS -->
+  <section id="shows">
+    <div class="shows-header">
+      <p class="section-label">Upcoming Events</p>
+      <h1>LIVE SHOWS</h1>
+    </div>
+    <div class="shows-body">
+      <div class="events-list" id="events-list"><p class="events-empty">Loading events…</p></div>
     </div>
   </section>
 
@@ -621,7 +637,6 @@
     const API_KEY = 'AIzaSyC3nw9vDuZODvgOs_CA3iUhp_d_aS4COYI';
     const EVENTBRITE_URL = 'https://www.eventbrite.com/e/yall-we-asian-hot-stories-hotter-comedy-tickets-162922468489';
     const container = document.getElementById('events-list');
-    document.getElementById('events-month-label').textContent = 'Upcoming Events';
     try {
       const now = new Date();
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&maxResults=5&singleEvents=true&orderBy=startTime`;
