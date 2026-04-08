@@ -91,8 +91,18 @@
     .about-layout { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; width:100%; }
     .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
     .about-text p strong { color:var(--white); font-weight:600; }
-    .calendar-wrap { width:100%; border:1px solid rgba(255,255,255,0.08); overflow:hidden; }
-    .calendar-wrap iframe { width:100%; height:520px; border:none; display:block; }
+    .events-list { width:100%; display:flex; flex-direction:column; gap:1px; }
+    .event-item { background:var(--panel); padding:1.2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); display:flex; gap:1.4rem; align-items:flex-start; }
+    .event-date-block { flex-shrink:0; text-align:center; width:48px; }
+    .event-date-month { font-family:var(--font-accent); font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); }
+    .event-date-day { font-family:var(--font-display); font-size:2rem; line-height:1; color:var(--white); }
+    .event-info { flex:1; }
+    .event-title { font-family:var(--font-display); font-size:1.1rem; letter-spacing:0.04em; color:var(--white); margin-bottom:0.25rem; }
+    .event-time { font-size:0.72rem; letter-spacing:0.1em; color:var(--muted); }
+    .event-location { font-size:0.72rem; letter-spacing:0.08em; color:var(--muted); margin-top:0.15rem; }
+    .events-empty { font-size:0.85rem; color:var(--muted); padding:1.5rem 0; }
+    html.light-mode .event-item { border-color:rgba(26,23,20,0.08); }
+    html.light-mode .event-date-day { color:var(--white); }
 
     /* ════════════ BIOS ════════════ */
     #bios { padding:80px 0 50px; }
@@ -347,9 +357,7 @@
         <p>We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.</p>
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
       </div>
-      <div class="calendar-wrap">
-        <iframe src="https://calendar.google.com/calendar/embed?src=17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3%40group.calendar.google.com&ctz=America%2FChicago&mode=WEEK&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23161616&color=%23D44131" frameborder="0" scrolling="no" title="YWA Upcoming Events"></iframe>
-      </div>
+      <div class="events-list" id="events-list"><p class="events-empty">Loading events…</p></div>
     </div>
   </section>
 
@@ -596,6 +604,53 @@
   function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); }
   function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect(); }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+  /* Upcoming Events */
+  (async function loadEvents() {
+    const CALENDAR_ID = '17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3@group.calendar.google.com';
+    const API_KEY = 'AIzaSyC3nw9vDuZODvgOs_CA3iUhp_d_aS4COYI';
+    const container = document.getElementById('events-list');
+    if (API_KEY === 'YOUR_GOOGLE_API_KEY') {
+      container.innerHTML = '<p class="events-empty">Add a Google Calendar API key to display upcoming events.</p>';
+      return;
+    }
+    try {
+      const now = new Date().toISOString();
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&maxResults=3&singleEvents=true&orderBy=startTime`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const items = data.items || [];
+      if (!items.length) {
+        container.innerHTML = '<p class="events-empty">No upcoming events. Check back soon!</p>';
+        return;
+      }
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      container.innerHTML = items.map(ev => {
+        const start = ev.start.dateTime ? new Date(ev.start.dateTime) : new Date(ev.start.date + 'T00:00:00');
+        const end   = ev.end.dateTime   ? new Date(ev.end.dateTime)   : null;
+        const month = months[start.getMonth()];
+        const day   = start.getDate();
+        const timeStr = ev.start.dateTime
+          ? start.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }) +
+            (end ? ' – ' + end.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }) : '')
+          : 'All Day';
+        const location = ev.location ? `<div class="event-location">📍 ${ev.location}</div>` : '';
+        return `<div class="event-item">
+          <div class="event-date-block">
+            <div class="event-date-month">${month}</div>
+            <div class="event-date-day">${day}</div>
+          </div>
+          <div class="event-info">
+            <div class="event-title">${ev.summary || 'Event'}</div>
+            <div class="event-time">${timeStr}</div>
+            ${location}
+          </div>
+        </div>`;
+      }).join('');
+    } catch {
+      container.innerHTML = '<p class="events-empty">Could not load events. Check back soon!</p>';
+    }
+  })();
 
   /* Contact form */
   async function submitForm() {
