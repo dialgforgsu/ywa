@@ -174,7 +174,6 @@
         <div class="bio-since">${m.since} – Present</div>
         ${m.pronouns ? `<div class="bio-pronouns">${m.pronouns}</div>` : ''}
         <div class="bio-name">${m.name}</div>
-        <div class="bio-hometown">📍 ${m.hometown}</div>
       </div>`;
     card.addEventListener('click', () => openModal(m));
     grid.appendChild(card);
@@ -191,7 +190,7 @@
     }
     document.getElementById('modal-tag').textContent = m.pronouns ? `${m.role}  ·  ${m.since} – Present  ·  ${m.pronouns}` : `${m.role}  ·  ${m.since} – Present`;
     document.getElementById('modal-name').textContent = m.name;
-    document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
+    document.getElementById('modal-hometown').textContent = '';
     document.getElementById('modal-text').textContent = m.full || m.desc;
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';

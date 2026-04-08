@@ -92,7 +92,7 @@
     .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
     .about-text p strong { color:var(--white); font-weight:600; }
     .calendar-wrap { width:100%; border:1px solid rgba(255,255,255,0.08); overflow:hidden; }
-    .calendar-wrap iframe { width:100%; height:420px; border:none; display:block; }
+    .calendar-wrap iframe { width:100%; height:520px; border:none; display:block; }
 
     /* ════════════ BIOS ════════════ */
     #bios { padding:80px 0 50px; }
@@ -348,7 +348,7 @@
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
       </div>
       <div class="calendar-wrap">
-        <iframe src="https://calendar.google.com/calendar/embed?src=17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3%40group.calendar.google.com&ctz=America%2FChicago&mode=AGENDA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23161616&color=%23D44131" frameborder="0" scrolling="no" title="YWA Upcoming Events"></iframe>
+        <iframe src="https://calendar.google.com/calendar/embed?src=17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3%40group.calendar.google.com&ctz=America%2FChicago&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23161616&color=%23D44131" frameborder="0" scrolling="no" title="YWA Upcoming Events"></iframe>
       </div>
     </div>
   </section>
@@ -574,7 +574,7 @@
     const imgEl = m.photo
       ? `<img class="bio-img" src="${m.photo}" alt="${m.name}" loading="lazy">`
       : `<div class="bio-img-placeholder" style="background:linear-gradient(160deg,${m.color} 0%,#0e0e0e 100%);">${m.name.charAt(0)}</div>`;
-    card.innerHTML = `${imgEl}<div class="bio-overlay"><div class="bio-desc">${m.desc}</div><div class="bio-role">${m.role}</div><div class="bio-since">${m.since} – Present</div>${m.pronouns ? `<div class="bio-pronouns">${m.pronouns}</div>` : ''}<div class="bio-name">${m.name}</div><div class="bio-hometown">📍 ${m.hometown}</div></div>`;
+    card.innerHTML = `${imgEl}<div class="bio-overlay"><div class="bio-desc">${m.desc}</div><div class="bio-role">${m.role}</div><div class="bio-since">${m.since} – Present</div>${m.pronouns ? `<div class="bio-pronouns">${m.pronouns}</div>` : ''}<div class="bio-name">${m.name}</div></div>`;
     card.addEventListener('click', () => openModal(m));
     biosGrid.appendChild(card);
   });
@@ -589,7 +589,7 @@
     }
     document.getElementById('modal-tag').textContent = m.pronouns ? `${m.role}  ·  ${m.since} – Present  ·  ${m.pronouns}` : `${m.role}  ·  ${m.since} – Present`;
     document.getElementById('modal-name').textContent = m.name;
-    document.getElementById('modal-hometown').textContent = '📍 ' + m.hometown;
+    document.getElementById('modal-hometown').textContent = '';
     document.getElementById('modal-text').textContent = m.full || m.desc;
     document.getElementById('modal-overlay').classList.add('open');
   }
