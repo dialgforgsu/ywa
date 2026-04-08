@@ -91,12 +91,8 @@
     .about-layout { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; width:100%; }
     .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
     .about-text p strong { color:var(--white); font-weight:600; }
-    .about-pillars { display:grid; grid-template-columns:1fr 1fr; gap:1px; border:1px solid rgba(255,255,255,0.08); }
-    .pillar { padding:1.5rem; border:1px solid rgba(255,255,255,0.04); transition:background 0.2s; }
-    .pillar:hover { background:rgba(212,65,49,0.06); }
-    .pillar-num { font-family:var(--font-display); font-size:2.5rem; color:var(--red); opacity:0.4; line-height:1; }
-    .pillar h3 { font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; margin:0.4rem 0 0.3rem; }
-    .pillar p { font-size:0.82rem; color:var(--muted); line-height:1.6; }
+    .calendar-wrap { width:100%; border:1px solid rgba(255,255,255,0.08); overflow:hidden; }
+    .calendar-wrap iframe { width:100%; height:420px; border:none; display:block; }
 
     /* ════════════ BIOS ════════════ */
     #bios { padding:80px 0 50px; }
@@ -216,11 +212,7 @@
     html.light-mode .hero-bg { background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(47,63,99,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%); }
     html.light-mode .about-text p { color: rgba(26,23,20,0.72); }
     html.light-mode .about-text p strong { color: var(--white); }
-    html.light-mode .about-pillars { border-color: rgba(26,23,20,0.1); }
-    html.light-mode .pillar { border-color: rgba(26,23,20,0.06); }
-    html.light-mode .pillar:hover { background: rgba(47,63,99,0.06); }
-    html.light-mode .pillar-num { opacity: 1; }
-    html.light-mode .pillar p { color: var(--muted); }
+    html.light-mode .calendar-wrap { border-color: rgba(26,23,20,0.1); }
     html.light-mode .contact-left > p { color: rgba(26,23,20,0.62); }
     html.light-mode .contact-info-item { border-color: rgba(26,23,20,0.1); color: var(--white); }
     html.light-mode .contact-show, html.light-mode .contact-show-info { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
@@ -355,11 +347,8 @@
         <p>We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.</p>
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
       </div>
-      <div class="about-pillars">
-        <div class="pillar"><div class="pillar-num">01</div><h3>Authentic</h3><p>Real stories from real people. No filter, no apologies.</p></div>
-        <div class="pillar"><div class="pillar-num">02</div><h3>Community</h3><p>We uplift each other on and off the stage.</p></div>
-        <div class="pillar"><div class="pillar-num">03</div><h3>Fearless</h3><p>We go there. Every time. That's the deal.</p></div>
-        <div class="pillar"><div class="pillar-num">04</div><h3>Joyful</h3><p>Comedy is how we make sense of the world.</p></div>
+      <div class="calendar-wrap">
+        <iframe src="https://calendar.google.com/calendar/embed?src=17f1fd6f1d4a609f7b4d2813791c325416b3b967aaad10fc28aae2974800ecf3%40group.calendar.google.com&ctz=America%2FChicago&mode=AGENDA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23161616&color=%23D44131" frameborder="0" scrolling="no" title="YWA Upcoming Events"></iframe>
       </div>
     </div>
   </section>
