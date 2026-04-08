@@ -152,6 +152,11 @@
     .modal-text { font-size:0.95rem; line-height:1.85; color:rgba(245,243,232,0.72); }
     .modal-close { position:absolute; top:0.8rem; right:0.8rem; background:rgba(20,20,20,0.75); border:none; color:#F5F3E8; font-size:1rem; width:34px; height:34px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; z-index:10; }
     .modal-close:hover { background:var(--red); }
+    .modal-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(20,20,20,0.75); border:none; color:#F5F3E8; font-size:1.2rem; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; z-index:10; }
+    .modal-nav:hover { background:var(--red); }
+    .modal-nav-prev { left:-52px; }
+    .modal-nav-next { right:-52px; }
+    @media (max-width:820px) { .modal-nav-prev { left:0.5rem; } .modal-nav-next { right:0.5rem; } }
 
     /* ════════════ IN THE NEWS ════════════ */
     #gallery { padding:100px 0 60px; }
@@ -523,7 +528,9 @@
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal-wrapper">
     <button class="modal-close" onclick="closeModalDirect()">✕</button>
-    <div class="modal">
+    <button class="modal-nav modal-nav-prev" onclick="navigateModal(-1)">&#8592;</button>
+    <button class="modal-nav modal-nav-next" onclick="navigateModal(1)">&#8594;</button>
+    <div class="modal" id="modal-body-scroll">
     <div class="modal-img-ph" id="modal-img"></div>
     <div class="modal-body">
       <div class="modal-tag" id="modal-tag"></div>
@@ -622,7 +629,13 @@
     card.addEventListener('click', () => openModal(m));
     biosGrid.appendChild(card);
   });
+  let currentModalIndex = 0;
   function openModal(m) {
+    currentModalIndex = members.indexOf(m);
+    renderModal(m);
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+  function renderModal(m) {
     const img = document.getElementById('modal-img');
     if (m.photo) {
       img.style.cssText = `background:#0e0e0e;padding:0;`;
@@ -635,11 +648,19 @@
     document.getElementById('modal-name').textContent = m.name;
     document.getElementById('modal-hometown').textContent = '';
     document.getElementById('modal-text').textContent = m.full || m.desc;
-    document.getElementById('modal-overlay').classList.add('open');
+    document.getElementById('modal-body-scroll').scrollTop = 0;
+  }
+  function navigateModal(dir) {
+    currentModalIndex = (currentModalIndex + dir + members.length) % members.length;
+    renderModal(members[currentModalIndex]);
   }
   function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); }
   function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect(); }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModalDirect();
+    if (e.key === 'ArrowLeft') navigateModal(-1);
+    if (e.key === 'ArrowRight') navigateModal(1);
+  });
 
   /* Upcoming Events */
   (async function loadEvents() {
