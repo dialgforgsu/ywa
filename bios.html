@@ -131,7 +131,7 @@
 
 <script>
   const members = [
-    { name: "G-SU PAEK", role: "Co-Founding Member", since: "2017", pronouns: "He/Him", hometown: "South Korea → Austin, TX", color: "#2a1a14", photo: "images/gsu-paek.jpg",
+    { name: "G-SU PAEK", role: "Co-Founding Member", since: "2017", pronouns: "He/Him", hometown: "South Korea → Austin, TX", color: "#2a1a14", photo: "images/gsu-paek-new.jpg", cardPhotoPos: "center 10%", modalPhotoPos: "center 15%",
       desc: "A longtime improv veteran who has performed at hundreds of venues and festivals across the country. Co-founder of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe.",
       full: "G-Su Paek is a longtime improv veteran and has performed at hundreds of venues and a handful of festivals across the country. He is also an accomplished actor, comedian, and one of the founders of Hot Pot Comedy, Austin’s first and only all Asian-American sketch troupe. You can find G-Su performing and teaching improv mainly at the Fallout Theater in Austin, Texas or follow him on instagram: @gsu.paek" },
     { name: "VIRGIL SHELBY", role: "Co-Founding Member", since: "2017", pronouns: "They/Them", hometown: "Singapore → Austin, TX", color: "#12201a", photo: "images/virgil-shelby.png", modalPhotoPos: "center 38%",
@@ -165,7 +165,7 @@
     const card = document.createElement('div');
     card.className = 'bio-card';
     const imgEl = m.photo
-      ? `<img class="bio-img" src="${m.photo}" alt="${m.name}" loading="lazy">`
+      ? `<img class="bio-img" src="${m.photo}" alt="${m.name}" loading="lazy" style="object-position:${m.cardPhotoPos||'top'}">`
       : `<div class="bio-img-placeholder" style="background: linear-gradient(160deg, ${m.color} 0%, #0e0e0e 100%);">${m.name.charAt(0)}</div>`;
     card.innerHTML = `${imgEl}
       <div class="bio-overlay">
