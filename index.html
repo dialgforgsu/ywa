@@ -65,8 +65,8 @@
     .section-label { font-family: var(--font-accent); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
 
     /* ════════════ HOME ════════════ */
-    #home { display:flex; align-items:center; justify-content:center; padding-top:72px; min-height:100vh; }
-    .hero-bg { position:absolute; inset:0; background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(212,65,49,0.1) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.05) 0%, transparent 60%); }
+    #home { display:flex; align-items:center; justify-content:center; padding-top:72px; min-height:100vh; background-image:url('images/YWA Outside Shop.jpg'); background-size:cover; background-position:center 30%; background-repeat:no-repeat; }
+    .hero-bg { position:absolute; inset:0; background: linear-gradient(180deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.6) 45%, rgba(10,10,10,0.82) 100%), radial-gradient(ellipse 70% 60% at 60% 40%, rgba(212,65,49,0.15) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.08) 0%, transparent 60%); }
     .hero-grid { position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size: 60px 60px; }
     .hero-content { position:relative; z-index:2; text-align:center; padding:0 2rem; }
     .hero-eyebrow { font-family:var(--font-accent); font-size:0.75rem; letter-spacing:0.3em; color:#F0EBD6; text-transform:uppercase; margin-bottom:1.2rem; opacity:0; animation:fadeUp 0.6s 0.1s ease forwards; }
@@ -248,7 +248,7 @@
     html.light-mode nav { background: rgba(245,243,232,0.92) !important; border-bottom-color: rgba(26,23,20,0.08) !important; }
     html.light-mode .mode-toggle { border-color: rgba(26,23,20,0.2); }
     html.light-mode .hero-grid { background-image: linear-gradient(rgba(26,23,20,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(26,23,20,0.04) 1px, transparent 1px); }
-    html.light-mode .hero-bg { background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(47,63,99,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%); }
+    html.light-mode .hero-bg { background: linear-gradient(180deg, rgba(245,243,232,0.85) 0%, rgba(245,243,232,0.72) 45%, rgba(245,243,232,0.9) 100%), radial-gradient(ellipse 70% 60% at 60% 40%, rgba(47,63,99,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%); }
     html.light-mode .about-text p { color: rgba(26,23,20,0.72); }
     html.light-mode .about-text p strong { color: var(--white); }
     html.light-mode .calendar-wrap { border-color: rgba(26,23,20,0.1); }
@@ -609,9 +609,6 @@
     { name:"SUNNY HUANG", role:"Main Cast", since:"2019", pronouns:"She/Her", hometown:"Los Angeles, CA → Austin, TX", color:"#201410", photo:"images/sunny-huang.png", modalFit:"contain",
       desc:"An Austin-based improviser and actress recently moved from Los Angeles. Studied at UCB and performed with Mess Hall team Bordeaux. Briefly ate an ice cream cone in a John Legend music video.",
       full:"Sunny Huang is an Austin-based improviser and actress who recently moved from Los Angeles. Sunny has been improvising since 2015 and studied at the Upright Citizens Brigade, where she performed with Mess Hall team, Bordeaux, as well as multiple indie teams. To date, her greatest artistic accomplishment is briefly eating an ice cream cone in a John Legend music video. Sunny is represented by Collier Talent Agency." },
-    { name:"UDAY WAGHMARE", role:"Main Cast", since:"2019", pronouns:"He/Him", hometown:"India → Austin, TX", color:"#1a1a24", photo:"images/Uday-Waghmare.jpg",
-      desc:"Originally from Mumbai, Uday has been in Austin for about 9 years. A ColdTowne graduate and part of the Age/Sex/Location troupe that won ThrowDowne.",
-      full:"Uday Waghmare is originally from Mumbai India, and he’s been in Austin for about 9 years, working for a tech company. Uday graduated from ColdTowne. At first, he hated improv, but he’s come around to find it’s FUN! He was part of Age/Sex/Location troupe that won ThrowDowne last year." },
     { name:"MARY VO", role:"Main Cast", since:"2021", pronouns:"She/Her", hometown:"Austin, TX", color:"#141a20", photo:"images/Mary-Vo-1.jpg", modalFit:"contain",
       desc:"A maker of laughs and pastries. Performing improv since 2019, also seen in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady.",
       full:"Mary Vo is a maker of laughs and pastries. She has been doing improv since 2019 and has also performed in MprovTV. Outside of comedy, she resumes daily life as a bookish cat lady. Follow her on Instagram: @contraryvo" },
