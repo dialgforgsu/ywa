@@ -65,7 +65,7 @@
     .section-label { font-family: var(--font-accent); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
 
     /* ════════════ HOME ════════════ */
-    #home { display:flex; align-items:center; justify-content:center; padding-top:72px; min-height:100vh; background-image:url('images/YWA Outside Shop.jpg'); background-size:cover; background-position:center 30%; background-repeat:no-repeat; }
+    #home { display:flex; align-items:center; justify-content:center; padding-top:72px; min-height:100vh; background-image:url('images/YWA Outside Shop.jpg'); background-size:cover; background-position:center 68%; background-repeat:no-repeat; }
     .hero-bg { position:absolute; inset:0; background: linear-gradient(180deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.6) 45%, rgba(10,10,10,0.82) 100%), radial-gradient(ellipse 70% 60% at 60% 40%, rgba(212,65,49,0.15) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.08) 0%, transparent 60%); }
     .hero-grid { position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size: 60px 60px; }
     .hero-content { position:relative; z-index:2; text-align:center; padding:0 2rem; }
@@ -93,6 +93,7 @@
     .about-layout { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; width:100%; }
     .about-text p { font-size:1.05rem; line-height:1.85; color:rgba(245,243,232,0.72); margin-bottom:1.5rem; }
     .about-text p strong { color:var(--white); font-weight:600; }
+    .about-photo { width:100%; aspect-ratio:3/2; object-fit:cover; object-position:center 35%; display:block; margin-top:0.5rem; border:1px solid rgba(255,255,255,0.08); }
     .events-list { width:100%; display:flex; flex-direction:column; gap:1px; }
     .event-item { background:var(--panel); padding:1.2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); display:flex; gap:1.4rem; align-items:center; }
     .event-date-block { flex-shrink:0; text-align:center; width:48px; }
@@ -124,7 +125,7 @@
     #bios { padding:80px 0 50px; }
     .bios-header { max-width:1200px; margin:0 auto 2.4rem; padding:0 3rem; }
     .bios-header h1 { font-family:var(--font-display); font-size:clamp(2.4rem,4.8vw,4.4rem); letter-spacing:0.03em; }
-    .bios-grid { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(208px,1fr)); gap:2px; }
+    .bios-grid { max-width:1200px; margin:0 auto; padding:0 3rem; display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
     .bio-card { background:var(--panel); overflow:hidden; position:relative; cursor:pointer; transition:transform 0.3s ease; }
     .bio-card:hover { z-index:2; transform:scale(1.015); }
     .bio-img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; display:block; filter:brightness(0.82); transition:filter 0.3s; }
@@ -251,6 +252,7 @@
     html.light-mode .hero-bg { background: linear-gradient(180deg, rgba(245,243,232,0.85) 0%, rgba(245,243,232,0.72) 45%, rgba(245,243,232,0.9) 100%), radial-gradient(ellipse 70% 60% at 60% 40%, rgba(47,63,99,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%); }
     html.light-mode .about-text p { color: rgba(26,23,20,0.72); }
     html.light-mode .about-text p strong { color: var(--white); }
+    html.light-mode .about-photo { border-color: rgba(26,23,20,0.12); }
     html.light-mode .calendar-wrap { border-color: rgba(26,23,20,0.1); }
     html.light-mode .contact-left > p { color: rgba(26,23,20,0.62); }
     html.light-mode .contact-info-item { border-color: rgba(26,23,20,0.1); color: var(--white); }
@@ -290,6 +292,7 @@
       .contact-wrap { grid-template-columns:1fr; gap:3rem; padding:0 1.5rem; }
       .shows-header,.shows-body { padding:0 1.5rem; }
       .bios-header,.bios-grid { padding:0 1.5rem; }
+      .bios-grid { grid-template-columns:repeat(2,1fr); }
       .gallery-header,.news-layout { padding:0 1.5rem; }
       .news-layout { grid-template-columns:1fr; gap:2.5rem; }
       footer { padding:1.8rem 1.5rem; flex-direction:column; gap:1rem; text-align:center; }
@@ -386,6 +389,7 @@
         <p><strong>Y'all We Asian</strong> is Austin's boldest, most chaotic, and most heartfelt improv comedy troupe. We were born out of a simple observation: there weren't enough Asian-American voices on the improv stage — so we climbed up there ourselves.</p>
         <p>We tell stories rooted in our cultures, our families, our second-generation anxiety, and our deep, abiding love for both boba and breakfast tacos. Every show is 100% unscripted, 100% from the gut, and 100% us.</p>
         <p>Founded in Austin, TX, we've performed at venues across the city and trained with some of the best improv programs in the country. Whether it's a packed Friday night show or a late-night indie jam, we show up ready to make you laugh and maybe feel things.</p>
+        <img class="about-photo" src="images/ywa group inside.jpg" alt="Y'all We Asian cast group photo" loading="lazy">
       </div>
       <div class="news-articles">
         <p class="news-articles-label">As Seen In</p>

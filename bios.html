@@ -37,7 +37,7 @@
     .bios-header { max-width: 1200px; margin: 0 auto 4rem; padding: 0 3rem; }
     .bios-header h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 0.03em; }
 
-    .bios-grid { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; }
+    .bios-grid { max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
 
     .bio-card { background: var(--panel); overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s ease; }
     .bio-card:hover { z-index: 2; transform: scale(1.015); }
@@ -84,7 +84,7 @@
     .footer-social a { font-size: 0.72rem; text-decoration: none; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
     .footer-social a:hover { color: var(--red); }
 
-    @media (max-width: 900px) { nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; } .bios-header, .bios-grid { padding: 0 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; } }
+    @media (max-width: 900px) { nav { padding: 0 1.5rem; } .nav-links { gap: 1.5rem; } .bios-header, .bios-grid { padding: 0 1.5rem; } .bios-grid { grid-template-columns: repeat(2, 1fr); } footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; } }
     @media (max-width: 600px) { .nav-links { display: none; } .bios-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
